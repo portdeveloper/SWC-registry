@@ -26,15 +26,668 @@
               }
             });
         </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">SWC-111</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="title"></a><a href="#title" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Title</h1>
-<p>Use of Deprecated Soldity Functions</p>
+<p>Use of Deprecated Solidity Functions</p>
 <h2><a class="anchor" aria-hidden="true" id="relationships"></a><a href="#relationships" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Relationships</h2>
 <p><a href="https://cwe.mitre.org/data/definitions/477.html">CWE-477: Use of Obsolete Function</a></p>
 <h2><a class="anchor" aria-hidden="true" id="description"></a><a href="#description" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Description</h2>
-<pre><code class="hljs css language-TODO">
-Refers <span class="hljs-keyword">to</span> use <span class="hljs-keyword">of</span> <span class="hljs-keyword">deprecated</span> Solidity aliases such <span class="hljs-keyword">as</span> suicide(), sha3(), throw().
-
-Also possibly send()?
-</code></pre>
+<p>Several functions and operators in Solidity are deprecated. Using them leads to reduced code quality. With new major versions of the Solidity compiler, deprecated functions and operators may result in side effects and compile errors.</p>
 <h2><a class="anchor" aria-hidden="true" id="remediation"></a><a href="#remediation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Remediation</h2>
+<p>Solidity provides alternatives to the deprecated constructions. Most of them are aliases, thus replacing old constructions will not break current behavior. For example, <code>sha3</code> can be replaced with <code>keccak256</code>.</p>
+<table>
+<thead>
+<tr><th>Deprecated</th><th>Alternative</th></tr>
+</thead>
+<tbody>
+<tr><td><code>suicide(address)</code></td><td><code>selfdestruct(address)</code></td></tr>
+<tr><td><code>block.blockhash(uint)</code></td><td><code>blockhash(uint)</code></td></tr>
+<tr><td><code>sha3(...)</code></td><td><code>keccak256(...)</code></td></tr>
+<tr><td><code>callcode(...)</code></td><td><code>delegatecall(...)</code></td></tr>
+<tr><td><code>throw</code></td><td><code>revert()</code></td></tr>
+<tr><td><code>msg.gas</code></td><td><code>gasleft</code></td></tr>
+<tr><td><code>constant</code></td><td><code>view</code></td></tr>
+</tbody>
+</table>
 <h2><a class="anchor" aria-hidden="true" id="references"></a><a href="#references" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>References</h2>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/SWC-registry/docs/SWC-110"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/SWC-registry/docs/SWC-112"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#relationships">Relationships</a></li><li><a href="#description">Description</a></li><li><a href="#remediation">Remediation</a></li><li><a href="#references">References</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="https://smartcontractsecurity.github.io/SWC-registry/#create-a-new-swc-entry">How to add a SWC definition</a><a href="https://smartcontractsecurity.github.io/SWC-registry/#create-a-test-case">How to add a test case</a><a href="">EIP XXXX</a></div><div><h5>Community</h5><a href="https://discord.gg/qcNvR2r">Join the Discord channel #swc-registry</a><a href="">Discussion at the Ethereum Magicians</a></div><div><h5>More</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/">Back to SWC-registry repo</a></div></section><section class="copyright">Copyright © 2018 SmartContractSecurity</section></footer></div></body></html>
+<ul>
+<li><a href="https://solidity.readthedocs.io/en/v0.4.25/miscellaneous.html#global-variables">List of global variables and functions, as of Solidity 0.4.25</a></li>
+<li><a href="https://solidity.readthedocs.io/en/v0.4.25/control-structures.html#error-handling-assert-require-revert-and-exceptions">Error handling: Assert, Require, Revert and Exceptions</a></li>
+<li><a href="https://solidity.readthedocs.io/en/v0.4.25/contracts.html#view-functions">View functions</a></li>
+<li><a href="https://github.com/ethereum/solidity/releases">Solidity compiler changelog</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="contract-samples"></a><a href="#contract-samples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contract Samples</h2>
+<h3><a class="anchor" aria-hidden="true" id="enssol"></a><a href="#enssol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ENS.sol</h3>
+<pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.0</span>;
+
+
+<span class="hljs-comment">/*
+
+Temporary Hash Registrar
+========================
+
+This is a simplified version of a hash registrar. It is purporsefully limited:
+names cannot be six letters or shorter, new auctions will stop after 4 years.
+
+The plan is to test the basic features and then move to a new contract in at most
+2 years, when some sort of renewal mechanism will be enabled.
+*/</span>
+
+contract AbstractENS {
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">owner</span><span class="hljs-params">(bytes32 node)</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span><span class="hljs-params">(address)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolver</span><span class="hljs-params">(bytes32 node)</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span><span class="hljs-params">(address)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ttl</span><span class="hljs-params">(bytes32 node)</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span><span class="hljs-params">(uint64)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setOwner</span><span class="hljs-params">(bytes32 node, address owner)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setSubnodeOwner</span><span class="hljs-params">(bytes32 node, bytes32 label, address owner)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setResolver</span><span class="hljs-params">(bytes32 node, address resolver)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setTTL</span><span class="hljs-params">(bytes32 node, uint64 ttl)</span></span>;
+
+    <span class="hljs-comment">// Logged when the owner of a node assigns a new owner to a subnode.</span>
+    event NewOwner(bytes32 indexed node, bytes32 indexed label, address owner);
+
+    <span class="hljs-comment">// Logged when the owner of a node transfers ownership to a new account.</span>
+    event Transfer(bytes32 indexed node, address owner);
+
+    <span class="hljs-comment">// Logged when the resolver for a node changes.</span>
+    event NewResolver(bytes32 indexed node, address resolver);
+
+    <span class="hljs-comment">// Logged when the TTL of a node changes</span>
+    event NewTTL(bytes32 indexed node, uint64 ttl);
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@title</span> Deed to hold ether in exchange for ownership of a node
+ * <span class="hljs-doctag">@dev</span> The deed can be controlled only by the registrar and can only send ether back to the owner.
+ */</span>
+contract Deed {
+    address <span class="hljs-keyword">public</span> registrar;
+    address constant burn = <span class="hljs-number">0xdead</span>;
+    <span class="hljs-keyword">uint</span> <span class="hljs-keyword">public</span> creationDate;
+    address <span class="hljs-keyword">public</span> owner;
+    address <span class="hljs-keyword">public</span> previousOwner;
+    <span class="hljs-keyword">uint</span> <span class="hljs-keyword">public</span> value;
+    event OwnerChanged(address newOwner);
+    event DeedClosed();
+    <span class="hljs-keyword">bool</span> active;
+
+
+    modifier onlyRegistrar {
+        <span class="hljs-keyword">if</span> (msg.sender != registrar) <span class="hljs-keyword">throw</span>;
+        _;
+    }
+
+    modifier onlyActive {
+        <span class="hljs-keyword">if</span> (!active) <span class="hljs-keyword">throw</span>;
+        _;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Deed</span><span class="hljs-params">(address _owner)</span> <span class="hljs-title">payable</span> </span>{
+        owner = _owner;
+        registrar = msg.sender;
+        creationDate = now;
+        active = <span class="hljs-keyword">true</span>;
+        value = msg.value;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setOwner</span><span class="hljs-params">(address newOwner)</span> <span class="hljs-title">onlyRegistrar</span> </span>{
+        <span class="hljs-keyword">if</span> (newOwner == <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span>;
+        previousOwner = owner;  <span class="hljs-comment">// This allows contracts to check who sent them the ownership</span>
+        owner = newOwner;
+        OwnerChanged(newOwner);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setRegistrar</span><span class="hljs-params">(address newRegistrar)</span> <span class="hljs-title">onlyRegistrar</span> </span>{
+        registrar = newRegistrar;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setBalance</span><span class="hljs-params">(uint newValue, bool throwOnFailure)</span> <span class="hljs-title">onlyRegistrar</span> <span class="hljs-title">onlyActive</span> </span>{
+        <span class="hljs-comment">// Check if it has enough balance to set the value</span>
+        <span class="hljs-keyword">if</span> (value &lt; newValue) <span class="hljs-keyword">throw</span>;
+        value = newValue;
+        <span class="hljs-comment">// Send the difference to the owner</span>
+        <span class="hljs-keyword">if</span> (!owner.send(this.balance - newValue) &amp;&amp; throwOnFailure) <span class="hljs-keyword">throw</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Close a deed and refund a specified fraction of the bid value
+     * <span class="hljs-doctag">@param</span> refundRatio The amount*1/1000 to refund
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">closeDeed</span><span class="hljs-params">(uint refundRatio)</span> <span class="hljs-title">onlyRegistrar</span> <span class="hljs-title">onlyActive</span> </span>{
+        active = <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">if</span> (! burn.send(((<span class="hljs-number">1000</span> - refundRatio) * this.balance)/<span class="hljs-number">1000</span>)) <span class="hljs-keyword">throw</span>;
+        DeedClosed();
+        destroyDeed();
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Close a deed and refund a specified fraction of the bid value
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroyDeed</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (active) <span class="hljs-keyword">throw</span>;
+        
+        <span class="hljs-comment">// Instead of selfdestruct(owner), invoke owner fallback function to allow</span>
+        <span class="hljs-comment">// owner to log an event if desired; but owner should also be aware that</span>
+        <span class="hljs-comment">// its fallback function can also be invoked by setBalance</span>
+        <span class="hljs-keyword">if</span>(owner.send(this.balance)) {
+            selfdestruct(burn);
+        }
+    }
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@title</span> Registrar
+ * <span class="hljs-doctag">@dev</span> The registrar handles the auction process for each subnode of the node it owns.
+ */</span>
+contract Registrar {
+    AbstractENS <span class="hljs-keyword">public</span> ens;
+    bytes32 <span class="hljs-keyword">public</span> rootNode;
+
+    mapping (bytes32 =&gt; entry) _entries;
+    mapping (address =&gt; mapping(bytes32 =&gt; Deed)) <span class="hljs-keyword">public</span> sealedBids;
+    
+    enum Mode { Open, Auction, Owned, Forbidden, Reveal, NotYetAvailable }
+
+    uint32 constant totalAuctionLength = <span class="hljs-number">5</span> days;
+    uint32 constant revealPeriod = <span class="hljs-number">48</span> hours;
+    uint32 <span class="hljs-keyword">public</span> constant launchLength = <span class="hljs-number">8</span> weeks;
+
+    <span class="hljs-keyword">uint</span> constant minPrice = <span class="hljs-number">0.01</span> ether;
+    <span class="hljs-keyword">uint</span> <span class="hljs-keyword">public</span> registryStarted;
+
+    event AuctionStarted(bytes32 indexed hash, <span class="hljs-keyword">uint</span> registrationDate);
+    event NewBid(bytes32 indexed hash, address indexed bidder, <span class="hljs-keyword">uint</span> deposit);
+    event BidRevealed(bytes32 indexed hash, address indexed owner, <span class="hljs-keyword">uint</span> value, uint8 status);
+    event HashRegistered(bytes32 indexed hash, address indexed owner, <span class="hljs-keyword">uint</span> value, <span class="hljs-keyword">uint</span> registrationDate);
+    event HashReleased(bytes32 indexed hash, <span class="hljs-keyword">uint</span> value);
+    event HashInvalidated(bytes32 indexed hash, string indexed name, <span class="hljs-keyword">uint</span> value, <span class="hljs-keyword">uint</span> registrationDate);
+
+    struct entry {
+        Deed deed;
+        <span class="hljs-keyword">uint</span> registrationDate;
+        <span class="hljs-keyword">uint</span> value;
+        <span class="hljs-keyword">uint</span> highestBid;
+    }
+
+    <span class="hljs-comment">// State transitions for names:</span>
+    <span class="hljs-comment">//   Open -&gt; Auction (startAuction)</span>
+    <span class="hljs-comment">//   Auction -&gt; Reveal</span>
+    <span class="hljs-comment">//   Reveal -&gt; Owned</span>
+    <span class="hljs-comment">//   Reveal -&gt; Open (if nobody bid)</span>
+    <span class="hljs-comment">//   Owned -&gt; Open (releaseDeed or invalidateName)</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">state</span><span class="hljs-params">(bytes32 _hash)</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(Mode)</span> </span>{
+        <span class="hljs-keyword">var</span> entry = _entries[_hash];
+        
+        <span class="hljs-keyword">if</span>(!isAllowed(_hash, now)) {
+            <span class="hljs-keyword">return</span> Mode.NotYetAvailable;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(now &lt; entry.registrationDate) {
+            <span class="hljs-keyword">if</span> (now &lt; entry.registrationDate - revealPeriod) {
+                <span class="hljs-keyword">return</span> Mode.Auction;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">return</span> Mode.Reveal;
+            }
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span>(entry.highestBid == <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">return</span> Mode.Open;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">return</span> Mode.Owned;
+            }
+        }
+    }
+
+    modifier inState(bytes32 _hash, Mode _state) {
+        <span class="hljs-keyword">if</span>(state(_hash) != _state) <span class="hljs-keyword">throw</span>;
+        _;
+    }
+
+    modifier onlyOwner(bytes32 _hash) {
+        <span class="hljs-keyword">if</span> (state(_hash) != Mode.Owned || msg.sender != _entries[_hash].deed.owner()) <span class="hljs-keyword">throw</span>;
+        _;
+    }
+
+    modifier registryOpen() {
+        <span class="hljs-keyword">if</span>(now &lt; registryStarted  || now &gt; registryStarted + <span class="hljs-number">4</span> years || ens.owner(rootNode) != address(this)) <span class="hljs-keyword">throw</span>;
+        _;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">entries</span><span class="hljs-params">(bytes32 _hash)</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(Mode, address, uint, uint, uint)</span> </span>{
+        entry h = _entries[_hash];
+        <span class="hljs-keyword">return</span> (state(_hash), h.deed, h.registrationDate, h.value, h.highestBid);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Constructs a new Registrar, with the provided address as the owner of the root node.
+     * <span class="hljs-doctag">@param</span> _ens The address of the ENS
+     * <span class="hljs-doctag">@param</span> _rootNode The hash of the rootnode.
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Registrar</span><span class="hljs-params">(AbstractENS _ens, bytes32 _rootNode, uint _startDate)</span> </span>{
+        ens = _ens;
+        rootNode = _rootNode;
+        registryStarted = _startDate &gt; <span class="hljs-number">0</span> ? _startDate : now;
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Returns the maximum of two unsigned integers
+     * <span class="hljs-doctag">@param</span> a A number to compare
+     * <span class="hljs-doctag">@param</span> b A number to compare
+     * <span class="hljs-doctag">@return</span> The maximum of two unsigned integers
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">max</span><span class="hljs-params">(uint a, uint b)</span> <span class="hljs-title">internal</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(uint max)</span> </span>{
+        <span class="hljs-keyword">if</span> (a &gt; b)
+            <span class="hljs-keyword">return</span> a;
+        <span class="hljs-keyword">else</span>
+            <span class="hljs-keyword">return</span> b;
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Returns the minimum of two unsigned integers
+     * <span class="hljs-doctag">@param</span> a A number to compare
+     * <span class="hljs-doctag">@param</span> b A number to compare
+     * <span class="hljs-doctag">@return</span> The minimum of two unsigned integers
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">min</span><span class="hljs-params">(uint a, uint b)</span> <span class="hljs-title">internal</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(uint min)</span> </span>{
+        <span class="hljs-keyword">if</span> (a &lt; b)
+            <span class="hljs-keyword">return</span> a;
+        <span class="hljs-keyword">else</span>
+            <span class="hljs-keyword">return</span> b;
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Returns the length of a given string
+     * <span class="hljs-doctag">@param</span> s The string to measure the length of
+     * <span class="hljs-doctag">@return</span> The length of the input string
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">strlen</span><span class="hljs-params">(string s)</span> <span class="hljs-title">internal</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(uint)</span> </span>{
+        <span class="hljs-comment">// Starting here means the LSB will be the byte we care about</span>
+        <span class="hljs-keyword">uint</span> ptr;
+        <span class="hljs-keyword">uint</span> end;
+        assembly {
+            ptr := add(s, <span class="hljs-number">1</span>)
+            end := add(mload(s), ptr)
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">uint</span> len = <span class="hljs-number">0</span>; ptr &lt; end; len++) {
+            uint8 b;
+            assembly { b := <span class="hljs-keyword">and</span>(mload(ptr), <span class="hljs-number">0xFF</span>) }
+            <span class="hljs-keyword">if</span> (b &lt; <span class="hljs-number">0x80</span>) {
+                ptr += <span class="hljs-number">1</span>;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(b &lt; <span class="hljs-number">0xE0</span>) {
+                ptr += <span class="hljs-number">2</span>;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(b &lt; <span class="hljs-number">0xF0</span>) {
+                ptr += <span class="hljs-number">3</span>;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(b &lt; <span class="hljs-number">0xF8</span>) {
+                ptr += <span class="hljs-number">4</span>;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(b &lt; <span class="hljs-number">0xFC</span>) {
+                ptr += <span class="hljs-number">5</span>;
+            } <span class="hljs-keyword">else</span> {
+                ptr += <span class="hljs-number">6</span>;
+            }
+        }
+        <span class="hljs-keyword">return</span> len;
+    }
+    
+    <span class="hljs-comment">/** 
+     * <span class="hljs-doctag">@dev</span> Determines if a name is available for registration yet
+     * 
+     * Each name will be assigned a random date in which its auction 
+     * can be started, from 0 to 13 weeks
+     * 
+     * <span class="hljs-doctag">@param</span> _hash The hash to start an auction on
+     * <span class="hljs-doctag">@param</span> _timestamp The timestamp to query about
+     */</span>
+     
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAllowed</span><span class="hljs-params">(bytes32 _hash, uint _timestamp)</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(bool allowed)</span></span>{
+        <span class="hljs-keyword">return</span> _timestamp &gt; getAllowedTime(_hash);
+    }
+
+    <span class="hljs-comment">/** 
+     * <span class="hljs-doctag">@dev</span> Returns available date for hash
+     * 
+     * <span class="hljs-doctag">@param</span> _hash The hash to start an auction on
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAllowedTime</span><span class="hljs-params">(bytes32 _hash)</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(uint timestamp)</span> </span>{
+        <span class="hljs-keyword">return</span> registryStarted + (launchLength*(<span class="hljs-keyword">uint</span>(_hash)&gt;&gt;<span class="hljs-number">128</span>)&gt;&gt;<span class="hljs-number">128</span>);
+        <span class="hljs-comment">// right shift operator: a &gt;&gt; b == a / 2**b</span>
+    }
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Assign the owner in ENS, if we're still the registrar
+     * <span class="hljs-doctag">@param</span> _hash hash to change owner
+     * <span class="hljs-doctag">@param</span> _newOwner new owner to transfer to
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">trySetSubnodeOwner</span><span class="hljs-params">(bytes32 _hash, address _newOwner)</span> <span class="hljs-title">internal</span> </span>{
+        <span class="hljs-keyword">if</span>(ens.owner(rootNode) == address(this))
+            ens.setSubnodeOwner(rootNode, _hash, _newOwner);        
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Start an auction for an available hash
+     *
+     * Anyone can start an auction by sending an array of hashes that they want to bid for.
+     * Arrays are sent so that someone can open up an auction for X dummy hashes when they
+     * are only really interested in bidding for one. This will increase the cost for an
+     * attacker to simply bid blindly on all new auctions. Dummy auctions that are
+     * open but not bid on are closed after a week.
+     *
+     * <span class="hljs-doctag">@param</span> _hash The hash to start an auction on
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startAuction</span><span class="hljs-params">(bytes32 _hash)</span> <span class="hljs-title">registryOpen</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> mode = state(_hash);
+        <span class="hljs-keyword">if</span>(mode == Mode.Auction) <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">if</span>(mode != Mode.Open) <span class="hljs-keyword">throw</span>;
+
+        entry newAuction = _entries[_hash];
+        newAuction.registrationDate = now + totalAuctionLength;
+        newAuction.value = <span class="hljs-number">0</span>;
+        newAuction.highestBid = <span class="hljs-number">0</span>;
+        AuctionStarted(_hash, newAuction.registrationDate);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Start multiple auctions for better anonymity
+     * <span class="hljs-doctag">@param</span> _hashes An array of hashes, at least one of which you presumably want to bid on
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startAuctions</span><span class="hljs-params">(bytes32[] _hashes)</span>  </span>{
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">uint</span> i = <span class="hljs-number">0</span>; i &lt; _hashes.length; i ++ ) {
+            startAuction(_hashes[i]);
+        }
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Hash the values required for a secret bid
+     * <span class="hljs-doctag">@param</span> hash The node corresponding to the desired namehash
+     * <span class="hljs-doctag">@param</span> value The bid amount
+     * <span class="hljs-doctag">@param</span> salt A random value to ensure secrecy of the bid
+     * <span class="hljs-doctag">@return</span> The hash of the bid values
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shaBid</span><span class="hljs-params">(bytes32 hash, address owner, uint value, bytes32 salt)</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(bytes32 sealedBid)</span> </span>{
+        <span class="hljs-keyword">return</span> sha3(hash, owner, value, salt);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Submit a new sealed bid on a desired hash in a blind auction
+     *
+     * Bids are sent by sending a message to the main contract with a hash and an amount. The hash
+     * contains information about the bid, including the bidded hash, the bid amount, and a random
+     * salt. Bids are not tied to any one auction until they are revealed. The value of the bid
+     * itself can be masqueraded by sending more than the value of your actual bid. This is
+     * followed by a 48h reveal period. Bids revealed after this period will be burned and the ether unrecoverable.
+     * Since this is an auction, it is expected that most public hashes, like known domains and common dictionary
+     * words, will have multiple bidders pushing the price up.
+     *
+     * <span class="hljs-doctag">@param</span> sealedBid A sealedBid, created by the shaBid function
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newBid</span><span class="hljs-params">(bytes32 sealedBid)</span> <span class="hljs-title">payable</span> </span>{
+        <span class="hljs-keyword">if</span> (address(sealedBids[msg.sender][sealedBid]) &gt; <span class="hljs-number">0</span> ) <span class="hljs-keyword">throw</span>;
+        <span class="hljs-keyword">if</span> (msg.value &lt; minPrice) <span class="hljs-keyword">throw</span>;
+        <span class="hljs-comment">// creates a new hash contract with the owner</span>
+        Deed newBid = (<span class="hljs-keyword">new</span> Deed).value(msg.value)(msg.sender);
+        sealedBids[msg.sender][sealedBid] = newBid;
+        NewBid(sealedBid, msg.sender, msg.value);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Start a set of auctions and bid on one of them
+     *
+     * This method functions identically to calling `startAuctions` followed by `newBid`,
+     * but all in one transaction.
+     * <span class="hljs-doctag">@param</span> hashes A list of hashes to start auctions on.
+     * <span class="hljs-doctag">@param</span> sealedBid A sealed bid for one of the auctions.
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startAuctionsAndBid</span><span class="hljs-params">(bytes32[] hashes, bytes32 sealedBid)</span> <span class="hljs-title">payable</span> </span>{
+        startAuctions(hashes);
+        newBid(sealedBid);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Submit the properties of a bid to reveal them
+     * <span class="hljs-doctag">@param</span> _hash The node in the sealedBid
+     * <span class="hljs-doctag">@param</span> _value The bid amount in the sealedBid
+     * <span class="hljs-doctag">@param</span> _salt The sale in the sealedBid
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unsealBid</span><span class="hljs-params">(bytes32 _hash, uint _value, bytes32 _salt)</span> </span>{
+        bytes32 seal = shaBid(_hash, msg.sender, _value, _salt);
+        Deed bid = sealedBids[msg.sender][seal];
+        <span class="hljs-keyword">if</span> (address(bid) == <span class="hljs-number">0</span> ) <span class="hljs-keyword">throw</span>;
+        sealedBids[msg.sender][seal] = Deed(<span class="hljs-number">0</span>);
+        entry h = _entries[_hash];
+        <span class="hljs-keyword">uint</span> value = min(_value, bid.value());
+        bid.setBalance(value, <span class="hljs-keyword">true</span>);
+
+        <span class="hljs-keyword">var</span> auctionState = state(_hash);
+        <span class="hljs-keyword">if</span>(auctionState == Mode.Owned) {
+            <span class="hljs-comment">// Too late! Bidder loses their bid. Get's 0.5% back.</span>
+            bid.closeDeed(<span class="hljs-number">5</span>);
+            BidRevealed(_hash, msg.sender, value, <span class="hljs-number">1</span>);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(auctionState != Mode.Reveal) {
+            <span class="hljs-comment">// Invalid phase</span>
+            <span class="hljs-keyword">throw</span>;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value &lt; minPrice || bid.creationDate() &gt; h.registrationDate - revealPeriod) {
+            <span class="hljs-comment">// Bid too low or too late, refund 99.5%</span>
+            bid.closeDeed(<span class="hljs-number">995</span>);
+            BidRevealed(_hash, msg.sender, value, <span class="hljs-number">0</span>);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value &gt; h.highestBid) {
+            <span class="hljs-comment">// new winner</span>
+            <span class="hljs-comment">// cancel the other bid, refund 99.5%</span>
+            <span class="hljs-keyword">if</span>(address(h.deed) != <span class="hljs-number">0</span>) {
+                Deed previousWinner = h.deed;
+                previousWinner.closeDeed(<span class="hljs-number">995</span>);
+            }
+
+            <span class="hljs-comment">// set new winner</span>
+            <span class="hljs-comment">// per the rules of a vickery auction, the value becomes the previous highestBid</span>
+            h.value = h.highestBid;  <span class="hljs-comment">// will be zero if there's only 1 bidder</span>
+            h.highestBid = value;
+            h.deed = bid;
+            BidRevealed(_hash, msg.sender, value, <span class="hljs-number">2</span>);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value &gt; h.value) {
+            <span class="hljs-comment">// not winner, but affects second place</span>
+            h.value = value;
+            bid.closeDeed(<span class="hljs-number">995</span>);
+            BidRevealed(_hash, msg.sender, value, <span class="hljs-number">3</span>);
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-comment">// bid doesn't affect auction</span>
+            bid.closeDeed(<span class="hljs-number">995</span>);
+            BidRevealed(_hash, msg.sender, value, <span class="hljs-number">4</span>);
+        }
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Cancel a bid
+     * <span class="hljs-doctag">@param</span> seal The value returned by the shaBid function
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cancelBid</span><span class="hljs-params">(address bidder, bytes32 seal)</span> </span>{
+        Deed bid = sealedBids[bidder][seal];
+        
+        <span class="hljs-comment">// If a sole bidder does not `unsealBid` in time, they have a few more days</span>
+        <span class="hljs-comment">// where they can call `startAuction` (again) and then `unsealBid` during</span>
+        <span class="hljs-comment">// the revealPeriod to get back their bid value.</span>
+        <span class="hljs-comment">// For simplicity, they should call `startAuction` within</span>
+        <span class="hljs-comment">// 9 days (2 weeks - totalAuctionLength), otherwise their bid will be</span>
+        <span class="hljs-comment">// cancellable by anyone.</span>
+        <span class="hljs-keyword">if</span> (address(bid) == <span class="hljs-number">0</span>
+            || now &lt; bid.creationDate() + totalAuctionLength + <span class="hljs-number">2</span> weeks) <span class="hljs-keyword">throw</span>;
+
+        <span class="hljs-comment">// Send the canceller 0.5% of the bid, and burn the rest.</span>
+        bid.setOwner(msg.sender);
+        bid.closeDeed(<span class="hljs-number">5</span>);
+        sealedBids[bidder][seal] = Deed(<span class="hljs-number">0</span>);
+        BidRevealed(seal, bidder, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Finalize an auction after the registration date has passed
+     * <span class="hljs-doctag">@param</span> _hash The hash of the name the auction is for
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">finalizeAuction</span><span class="hljs-params">(bytes32 _hash)</span> <span class="hljs-title">onlyOwner</span><span class="hljs-params">(_hash)</span> </span>{
+        entry h = _entries[_hash];
+        
+        <span class="hljs-comment">// handles the case when there's only a single bidder (h.value is zero)</span>
+        h.value =  max(h.value, minPrice);
+        h.deed.setBalance(h.value, <span class="hljs-keyword">true</span>);
+
+        trySetSubnodeOwner(_hash, h.deed.owner());
+        HashRegistered(_hash, h.deed.owner(), h.value, h.registrationDate);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> The owner of a domain may transfer it to someone else at any time.
+     * <span class="hljs-doctag">@param</span> _hash The node to transfer
+     * <span class="hljs-doctag">@param</span> newOwner The address to transfer ownership to
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transfer</span><span class="hljs-params">(bytes32 _hash, address newOwner)</span> <span class="hljs-title">onlyOwner</span><span class="hljs-params">(_hash)</span> </span>{
+        <span class="hljs-keyword">if</span> (newOwner == <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span>;
+
+        entry h = _entries[_hash];
+        h.deed.setOwner(newOwner);
+        trySetSubnodeOwner(_hash, newOwner);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> After some time, or if we're no longer the registrar, the owner can release
+     *      the name and get their ether back.
+     * <span class="hljs-doctag">@param</span> _hash The node to release
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">releaseDeed</span><span class="hljs-params">(bytes32 _hash)</span> <span class="hljs-title">onlyOwner</span><span class="hljs-params">(_hash)</span> </span>{
+        entry h = _entries[_hash];
+        Deed deedContract = h.deed;
+        <span class="hljs-keyword">if</span>(now &lt; h.registrationDate + <span class="hljs-number">1</span> years &amp;&amp; ens.owner(rootNode) == address(this)) <span class="hljs-keyword">throw</span>;
+
+        h.value = <span class="hljs-number">0</span>;
+        h.highestBid = <span class="hljs-number">0</span>;
+        h.deed = Deed(<span class="hljs-number">0</span>);
+
+        _tryEraseSingleNode(_hash);
+        deedContract.closeDeed(<span class="hljs-number">1000</span>);
+        HashReleased(_hash, h.value);        
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Submit a name 6 characters long or less. If it has been registered,
+     * the submitter will earn 50% of the deed value. We are purposefully
+     * handicapping the simplified registrar as a way to force it into being restructured
+     * in a few years.
+     * <span class="hljs-doctag">@param</span> unhashedName An invalid name to search for in the registry.
+     *
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">invalidateName</span><span class="hljs-params">(string unhashedName)</span> <span class="hljs-title">inState</span><span class="hljs-params">(sha3<span class="hljs-params">(unhashedName)</span>, Mode.Owned)</span> </span>{
+        <span class="hljs-keyword">if</span> (strlen(unhashedName) &gt; <span class="hljs-number">6</span> ) <span class="hljs-keyword">throw</span>;
+        bytes32 hash = sha3(unhashedName);
+
+        entry h = _entries[hash];
+
+        _tryEraseSingleNode(hash);
+
+        <span class="hljs-keyword">if</span>(address(h.deed) != <span class="hljs-number">0</span>) {
+            <span class="hljs-comment">// Reward the discoverer with 50% of the deed</span>
+            <span class="hljs-comment">// The previous owner gets 50%</span>
+            h.value = max(h.value, minPrice);
+            h.deed.setBalance(h.value/<span class="hljs-number">2</span>, <span class="hljs-keyword">false</span>);
+            h.deed.setOwner(msg.sender);
+            h.deed.closeDeed(<span class="hljs-number">1000</span>);
+        }
+
+        HashInvalidated(hash, unhashedName, h.value, h.registrationDate);
+
+        h.value = <span class="hljs-number">0</span>;
+        h.highestBid = <span class="hljs-number">0</span>;
+        h.deed = Deed(<span class="hljs-number">0</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Allows anyone to delete the owner and resolver records for a (subdomain of) a
+     *      name that is not currently owned in the registrar. If passing, eg, 'foo.bar.eth',
+     *      the owner and resolver fields on 'foo.bar.eth' and 'bar.eth' will all be cleared.
+     * <span class="hljs-doctag">@param</span> labels A series of label hashes identifying the name to zero out, rooted at the
+     *        registrar's root. Must contain at least one element. For instance, to zero 
+     *        'foo.bar.eth' on a registrar that owns '.eth', pass an array containing
+     *        [sha3('foo'), sha3('bar')].
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eraseNode</span><span class="hljs-params">(bytes32[] labels)</span> </span>{
+        <span class="hljs-keyword">if</span>(labels.length == <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span>;
+        <span class="hljs-keyword">if</span>(state(labels[labels.length - <span class="hljs-number">1</span>]) == Mode.Owned) <span class="hljs-keyword">throw</span>;
+
+        _eraseNodeHierarchy(labels.length - <span class="hljs-number">1</span>, labels, rootNode);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_tryEraseSingleNode</span><span class="hljs-params">(bytes32 label)</span> <span class="hljs-title">internal</span> </span>{
+        <span class="hljs-keyword">if</span>(ens.owner(rootNode) == address(this)) {
+            ens.setSubnodeOwner(rootNode, label, address(this));
+            <span class="hljs-keyword">var</span> node = sha3(rootNode, label);
+            ens.setResolver(node, <span class="hljs-number">0</span>);
+            ens.setOwner(node, <span class="hljs-number">0</span>);
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_eraseNodeHierarchy</span><span class="hljs-params">(uint idx, bytes32[] labels, bytes32 node)</span> <span class="hljs-title">internal</span> </span>{
+        <span class="hljs-comment">// Take ownership of the node</span>
+        ens.setSubnodeOwner(node, labels[idx], address(this));
+        node = sha3(node, labels[idx]);
+        
+        <span class="hljs-comment">// Recurse if there's more labels</span>
+        <span class="hljs-keyword">if</span>(idx &gt; <span class="hljs-number">0</span>)
+            _eraseNodeHierarchy(idx - <span class="hljs-number">1</span>, labels, node);
+
+        <span class="hljs-comment">// Erase the resolver and owner records</span>
+        ens.setResolver(node, <span class="hljs-number">0</span>);
+        ens.setOwner(node, <span class="hljs-number">0</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Transfers the deed to the current registrar, if different from this one.
+     * Used during the upgrade process to a permanent registrar.
+     * <span class="hljs-doctag">@param</span> _hash The name hash to transfer.
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transferRegistrars</span><span class="hljs-params">(bytes32 _hash)</span> <span class="hljs-title">onlyOwner</span><span class="hljs-params">(_hash)</span> </span>{
+        <span class="hljs-keyword">var</span> registrar = ens.owner(rootNode);
+        <span class="hljs-keyword">if</span>(registrar == address(this))
+            <span class="hljs-keyword">throw</span>;
+
+        <span class="hljs-comment">// Migrate the deed</span>
+        entry h = _entries[_hash];
+        h.deed.setRegistrar(registrar);
+
+        <span class="hljs-comment">// Call the new registrar to accept the transfer</span>
+        Registrar(registrar).acceptRegistrarTransfer(_hash, h.deed, h.registrationDate);
+
+        <span class="hljs-comment">// Zero out the entry</span>
+        h.deed = Deed(<span class="hljs-number">0</span>);
+        h.registrationDate = <span class="hljs-number">0</span>;
+        h.value = <span class="hljs-number">0</span>;
+        h.highestBid = <span class="hljs-number">0</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@dev</span> Accepts a transfer from a previous registrar; stubbed out here since there
+     *      is no previous registrar implementing this interface.
+     * <span class="hljs-doctag">@param</span> hash The sha3 hash of the label to transfer.
+     * <span class="hljs-doctag">@param</span> deed The Deed object for the name being transferred in.
+     * <span class="hljs-doctag">@param</span> registrationDate The date at which the name was originally registered.
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">acceptRegistrarTransfer</span><span class="hljs-params">(bytes32 hash, Deed deed, uint registrationDate)</span> </span>{}
+
+}
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="config"></a><a href="#config" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Config</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Use of Deprecated Solidity Functions"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-111"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">9</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[17]</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[18]</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[19]</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[55]</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[60]</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[73]</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[341]</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[510]</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[512]</span>
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/SWC-registry/docs/SWC-110"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/SWC-registry/docs/SWC-112"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#relationships">Relationships</a></li><li><a href="#description">Description</a></li><li><a href="#remediation">Remediation</a></li><li><a href="#references">References</a></li><li><a href="#contract-samples">Contract Samples</a><ul class="toc-headings"><li><a href="#enssol">ENS.sol</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="https://smartcontractsecurity.github.io/SWC-registry/#create-a-new-swc-entry">How to add a SWC definition</a><a href="https://smartcontractsecurity.github.io/SWC-registry/#create-a-test-case">How to add a test case</a><a href="">EIP XXXX</a></div><div><h5>Community</h5><a href="https://discord.gg/qcNvR2r">Join the Discord channel #swc-registry</a><a href="">Discussion at the Ethereum Magicians</a></div><div><h5>More</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/">Back to SWC-registry repo</a></div></section><section class="copyright">Copyright © 2018 SmartContractSecurity</section></footer></div></body></html>
