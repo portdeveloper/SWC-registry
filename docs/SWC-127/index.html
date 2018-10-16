@@ -43,31 +43,31 @@
 <h2><a class="anchor" aria-hidden="true" id="contract-samples"></a><a href="#contract-samples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contract Samples</h2>
 <h3><a class="anchor" aria-hidden="true" id="functiontypessol"></a><a href="#functiontypessol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>FunctionTypes.sol</h3>
 <pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
- * <span class="hljs-doctag">@source</span>: https://gist.github.com/wadeAlexC/7a18de852693b3f890560ab6a211a2b8
- * <span class="hljs-doctag">@author</span>: Alexander Wade
+ * @source: https://gist.github.com/wadeAlexC/7a18de852693b3f890560ab6a211a2b8
+ * @author: Alexander Wade
  */</span>
 
 pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.25</span>;
 
-contract FunctionTypes {
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">FunctionTypes</span> </span>{
     
-    constructor() <span class="hljs-keyword">public</span> payable { <span class="hljs-keyword">require</span>(msg.value != <span class="hljs-number">0</span>); }
+    constructor() <span class="hljs-keyword">public</span> payable { <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.value != <span class="hljs-number">0</span>); }
     
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdraw</span><span class="hljs-params">()</span> <span class="hljs-title">private</span> </span>{
-        <span class="hljs-keyword">require</span>(msg.value == <span class="hljs-number">0</span>, <span class="hljs-string">'dont send funds!'</span>);
-        address(msg.sender).transfer(address(this).balance);
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdraw</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">private</span></span> </span>{
+        <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.value == <span class="hljs-number">0</span>, <span class="hljs-string">'dont send funds!'</span>);
+        <span class="hljs-keyword">address</span>(<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>).transfer(<span class="hljs-keyword">address</span>(<span class="hljs-built_in">this</span>).<span class="hljs-built_in">balance</span>);
     }
     
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">frwd</span><span class="hljs-params">()</span> <span class="hljs-title">internal</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">frwd</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">internal</span></span>
         </span>{ withdraw(); }
         
-    struct Func { <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> <span class="hljs-title">internal</span> <span class="hljs-title">f</span></span>; }
+    <span class="hljs-keyword">struct</span> Func { <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">internal</span></span> <span class="hljs-title">f</span></span>; }
     
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">breakIt</span><span class="hljs-params">()</span> <span class="hljs-title">public</span> <span class="hljs-title">payable</span> </span>{
-        <span class="hljs-keyword">require</span>(msg.value != <span class="hljs-number">0</span>, <span class="hljs-string">'send funds!'</span>);
-        Func memory func;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">breakIt</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title">payable</span> </span>{
+        <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.value != <span class="hljs-number">0</span>, <span class="hljs-string">'send funds!'</span>);
+        Func <span class="hljs-keyword">memory</span> func;
         func.f = frwd;
-        assembly { mstore(func, add(mload(func), callvalue)) }
+        <span class="hljs-keyword">assembly</span> { mstore(func, add(mload(func), callvalue)) }
         func.f();
     }
 }
@@ -84,6 +84,17 @@ contract FunctionTypes {
 
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/SWC-registry/docs/SWC-125"><span class="arrow-prev">← </span><span>Previous</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#relationships">Relationships</a></li><li><a href="#description">Description</a></li><li><a href="#remediation">Remediation</a></li><li><a href="#references">References</a></li><li><a href="#contract-samples">Contract Samples</a><ul class="toc-headings"><li><a href="#functiontypessol">FunctionTypes.sol</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-swc-entry">How to add a new SWC entry</a><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-test-case">How to add a new Test Case</a></div><div><h5>Community</h5><a href="https://discord.gg/qcNvR2r">Join the Discord channel #swc-registry</a><a href="https://github.com/ethereum/EIPs/issues/1469">EIP-1470 discussion at ethereum/EIPs</a></div><div><h5>More</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/">Back to SWC-registry repo</a></div></section><section class="copyright">Copyright © 2018 SmartContractSecurity</section><script type="text/javascript" src="https://rawgit.com/s0b0lev/SWC-registry/website/website/scripts/lineNumbers.js"></script></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
               var search = docsearch({
                 
                 apiKey: '064ab94cd5d5382009d9640000aeea98',

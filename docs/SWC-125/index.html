@@ -43,53 +43,53 @@
 <h2><a class="anchor" aria-hidden="true" id="contract-samples"></a><a href="#contract-samples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contract Samples</h2>
 <h3><a class="anchor" aria-hidden="true" id="mdtcrowdsalesol"></a><a href="#mdtcrowdsalesol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>MDTCrowdsale.sol</h3>
 <pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
- * <span class="hljs-doctag">@source</span>: https://github.com/Arachnid/uscc/blob/master/submissions-2017/philipdaian/MDTCrowdsale.sol
- * <span class="hljs-doctag">@author</span>: Philip Daian
+ * @source: https://github.com/Arachnid/uscc/blob/master/submissions-2017/philipdaian/MDTCrowdsale.sol
+ * @author: Philip Daian
  */</span>
 
 pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.25</span>;
 
-import <span class="hljs-string">"https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol"</span>;
-import <span class="hljs-string">"https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol"</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">"https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol"</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">"https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol"</span>;
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@title</span> Crowdsale 
- * <span class="hljs-doctag">@dev</span> Crowdsale is a base contract for managing a token crowdsale.
+ * @title Crowdsale 
+ * @dev Crowdsale is a base contract for managing a token crowdsale.
  * Crowdsales have a start and end block, where investors can make
  * token purchases and the crowdsale will assign them tokens based
  * on a token per ETH rate. Funds collected are forwarded to a wallet 
  * as they arrive.
  */</span>
-contract Crowdsale {
-    using SafeMath <span class="hljs-keyword">for</span> uint256;
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">Crowdsale</span> </span>{
+    <span class="hljs-keyword">using</span> SafeMath <span class="hljs-keyword">for</span> <span class="hljs-keyword">uint256</span>;
 
     <span class="hljs-comment">// The token being sold</span>
     ERC20Mintable <span class="hljs-keyword">public</span> token;
 
     <span class="hljs-comment">// start and end block where investments are allowed (both inclusive)</span>
-    uint256 <span class="hljs-keyword">public</span> startBlock;
-    uint256 <span class="hljs-keyword">public</span> endBlock;
+    <span class="hljs-keyword">uint256</span> <span class="hljs-keyword">public</span> startBlock;
+    <span class="hljs-keyword">uint256</span> <span class="hljs-keyword">public</span> endBlock;
 
     <span class="hljs-comment">// address where funds are collected</span>
-    address <span class="hljs-keyword">public</span> wallet;
+    <span class="hljs-keyword">address</span> <span class="hljs-keyword">public</span> wallet;
 
     <span class="hljs-comment">// how many token units a buyer gets per wei</span>
-    uint256 <span class="hljs-keyword">public</span> rate;
+    <span class="hljs-keyword">uint256</span> <span class="hljs-keyword">public</span> rate;
 
     <span class="hljs-comment">// amount of raised money in wei</span>
-    uint256 <span class="hljs-keyword">public</span> weiRaised;
+    <span class="hljs-keyword">uint256</span> <span class="hljs-keyword">public</span> weiRaised;
 
     <span class="hljs-comment">/**
     * event for token purchase logging
-    * <span class="hljs-doctag">@param</span> purchaser who paid for the tokens
-    * <span class="hljs-doctag">@param</span> beneficiary who got the tokens
-    * <span class="hljs-doctag">@param</span> value weis paid for purchase
-    * <span class="hljs-doctag">@param</span> amount amount of tokens purchased
+    * @param purchaser who paid for the tokens
+    * @param beneficiary who got the tokens
+    * @param value weis paid for purchase
+    * @param amount amount of tokens purchased
     */</span> 
-    event TokenPurchase(address indexed purchaser, address indexed beneficiary, uint256 value, uint256 amount);
+    <span class="hljs-function"><span class="hljs-keyword">event</span> <span class="hljs-title">TokenPurchase</span>(<span class="hljs-params"><span class="hljs-keyword">address</span> <span class="hljs-keyword">indexed</span> purchaser, <span class="hljs-keyword">address</span> <span class="hljs-keyword">indexed</span> beneficiary, <span class="hljs-keyword">uint256</span> value, <span class="hljs-keyword">uint256</span> amount</span>)</span>;
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Crowdsale</span><span class="hljs-params">(uint256 _startBlock, uint256 _endBlock, uint256 _rate, address _wallet)</span> </span>{
-        <span class="hljs-keyword">require</span>(_startBlock &gt;= block.number);
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Crowdsale</span>(<span class="hljs-params"><span class="hljs-keyword">uint256</span> _startBlock, <span class="hljs-keyword">uint256</span> _endBlock, <span class="hljs-keyword">uint256</span> _rate, <span class="hljs-keyword">address</span> _wallet</span>) </span>{
+        <span class="hljs-keyword">require</span>(_startBlock &gt;= <span class="hljs-built_in">block</span>.<span class="hljs-built_in">number</span>);
         <span class="hljs-keyword">require</span>(_endBlock &gt;= _startBlock);
         <span class="hljs-keyword">require</span>(_rate &gt; <span class="hljs-number">0</span>);
         <span class="hljs-keyword">require</span>(_wallet != <span class="hljs-number">0x0</span>);
@@ -103,112 +103,112 @@ contract Crowdsale {
 
     <span class="hljs-comment">// creates the token to be sold. </span>
     <span class="hljs-comment">// override this method to have crowdsale of a specific mintable token.</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createTokenContract</span><span class="hljs-params">()</span> <span class="hljs-title">internal</span> <span class="hljs-title">returns</span> <span class="hljs-params">(ERC20Mintable)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createTokenContract</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">internal</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params">ERC20Mintable</span>) </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ERC20Mintable();
     }
 
 
     <span class="hljs-comment">// fallback function can be used to buy tokens</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> <span class="hljs-title">payable</span> </span>{
-        buyTokens(msg.sender);
+    <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) <span class="hljs-title">payable</span> </span>{
+        buyTokens(<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>);
     }
 
     <span class="hljs-comment">// low level token purchase function</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buyTokens</span><span class="hljs-params">(address beneficiary)</span> <span class="hljs-title">payable</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buyTokens</span>(<span class="hljs-params"><span class="hljs-keyword">address</span> beneficiary</span>) <span class="hljs-title">payable</span> </span>{
         <span class="hljs-keyword">require</span>(beneficiary != <span class="hljs-number">0x0</span>);
         <span class="hljs-keyword">require</span>(validPurchase());
 
-        uint256 weiAmount = msg.value;
+        <span class="hljs-keyword">uint256</span> weiAmount = <span class="hljs-built_in">msg</span>.value;
 
         <span class="hljs-comment">// calculate token amount to be created</span>
-        uint256 tokens = weiAmount.mul(rate);
+        <span class="hljs-keyword">uint256</span> tokens = weiAmount.mul(rate);
 
         <span class="hljs-comment">// update state</span>
         weiRaised = weiRaised.add(weiAmount);
 
         token.mint(beneficiary, tokens);
-        TokenPurchase(msg.sender, beneficiary, weiAmount, tokens);
+        TokenPurchase(<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>, beneficiary, weiAmount, tokens);
 
         forwardFunds();
     }
 
     <span class="hljs-comment">// send ether to the fund collection wallet</span>
     <span class="hljs-comment">// override to create custom fund forwarding mechanisms</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forwardFunds</span><span class="hljs-params">()</span> <span class="hljs-title">internal</span> </span>{
-        wallet.transfer(msg.value);
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forwardFunds</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">internal</span></span> </span>{
+        wallet.transfer(<span class="hljs-built_in">msg</span>.value);
     }
 
     <span class="hljs-comment">// @return true if the transaction can buy tokens</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validPurchase</span><span class="hljs-params">()</span> <span class="hljs-title">internal</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(bool)</span> </span>{
-        uint256 current = block.number;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validPurchase</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">internal</span></span> <span class="hljs-title"><span class="hljs-keyword">constant</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">bool</span></span>) </span>{
+        <span class="hljs-keyword">uint256</span> current = <span class="hljs-built_in">block</span>.<span class="hljs-built_in">number</span>;
         <span class="hljs-keyword">bool</span> withinPeriod = current &gt;= startBlock &amp;&amp; current &lt;= endBlock;
-        <span class="hljs-keyword">bool</span> nonZeroPurchase = msg.value != <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">bool</span> nonZeroPurchase = <span class="hljs-built_in">msg</span>.value != <span class="hljs-number">0</span>;
         <span class="hljs-keyword">return</span> withinPeriod &amp;&amp; nonZeroPurchase;
     }
 
     <span class="hljs-comment">// @return true if crowdsale event has ended</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasEnded</span><span class="hljs-params">()</span> <span class="hljs-title">public</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(bool)</span> </span>{
-        <span class="hljs-keyword">return</span> block.number &gt; endBlock;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasEnded</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">constant</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">bool</span></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">block</span>.<span class="hljs-built_in">number</span> &gt; endBlock;
     }
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@title</span> CappedCrowdsale
- * <span class="hljs-doctag">@dev</span> Extension of Crowsdale with a max amount of funds raised
+ * @title CappedCrowdsale
+ * @dev Extension of Crowsdale with a max amount of funds raised
  */</span>
- contract CappedCrowdsale is Crowdsale {
-    using SafeMath <span class="hljs-keyword">for</span> uint256;
-    uint256 <span class="hljs-keyword">public</span> cap;
+ <span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">CappedCrowdsale</span> <span class="hljs-keyword">is</span> <span class="hljs-title">Crowdsale</span> </span>{
+    <span class="hljs-keyword">using</span> SafeMath <span class="hljs-keyword">for</span> <span class="hljs-keyword">uint256</span>;
+    <span class="hljs-keyword">uint256</span> <span class="hljs-keyword">public</span> cap;
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CappedCrowdsale</span><span class="hljs-params">(uint256 _cap)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CappedCrowdsale</span>(<span class="hljs-params"><span class="hljs-keyword">uint256</span> _cap</span>) </span>{
         <span class="hljs-keyword">require</span>(_cap &gt; <span class="hljs-number">0</span>);
         cap = _cap;
     }
 
     <span class="hljs-comment">// overriding Crowdsale#validPurchase to add extra cap logic</span>
     <span class="hljs-comment">// @return true if investors can buy at the moment</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validPurchase</span><span class="hljs-params">()</span> <span class="hljs-title">internal</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(bool)</span> </span>{
-        <span class="hljs-keyword">bool</span> withinCap = weiRaised.add(msg.value) &lt;= cap;
-        <span class="hljs-keyword">return</span> super.validPurchase() &amp;&amp; withinCap;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validPurchase</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">internal</span></span> <span class="hljs-title"><span class="hljs-keyword">constant</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">bool</span></span>) </span>{
+        <span class="hljs-keyword">bool</span> withinCap = weiRaised.add(<span class="hljs-built_in">msg</span>.value) &lt;= cap;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.validPurchase() &amp;&amp; withinCap;
     }
 
     <span class="hljs-comment">// overriding Crowdsale#hasEnded to add cap logic</span>
     <span class="hljs-comment">// @return true if crowdsale event has ended</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasEnded</span><span class="hljs-params">()</span> <span class="hljs-title">public</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(bool)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasEnded</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">constant</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">bool</span></span>) </span>{
         <span class="hljs-keyword">bool</span> capReached = weiRaised &gt;= cap;
-        <span class="hljs-keyword">return</span> super.hasEnded() || capReached;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.hasEnded() || capReached;
     }
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@title</span> WhitelistedCrowdsale
- * <span class="hljs-doctag">@dev</span> Extension of Crowsdale with a whitelist of investors that 
+ * @title WhitelistedCrowdsale
+ * @dev Extension of Crowsdale with a whitelist of investors that 
  * can buy before the start block
  */</span>
-contract WhitelistedCrowdsale is Crowdsale {
-    using SafeMath <span class="hljs-keyword">for</span> uint256;
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">WhitelistedCrowdsale</span> <span class="hljs-keyword">is</span> <span class="hljs-title">Crowdsale</span> </span>{
+    <span class="hljs-keyword">using</span> SafeMath <span class="hljs-keyword">for</span> <span class="hljs-keyword">uint256</span>;
 
-    mapping (address =&gt; <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">public</span> whitelist;
+    <span class="hljs-keyword">mapping</span> (<span class="hljs-keyword">address</span> =&gt; <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">public</span> whitelist;
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addToWhitelist</span><span class="hljs-params">(address addr)</span> </span>{
-        <span class="hljs-keyword">require</span>(msg.sender != address(this));
-        whitelist[addr] = <span class="hljs-keyword">true</span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addToWhitelist</span>(<span class="hljs-params"><span class="hljs-keyword">address</span> addr</span>) </span>{
+        <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span> != <span class="hljs-keyword">address</span>(<span class="hljs-built_in">this</span>));
+        whitelist[addr] = <span class="hljs-literal">true</span>;
     }
 
     <span class="hljs-comment">// overriding Crowdsale#validPurchase to add extra whitelit logic</span>
     <span class="hljs-comment">// @return true if investors can buy at the moment</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validPurchase</span><span class="hljs-params">()</span> <span class="hljs-title">internal</span> <span class="hljs-title">constant</span> <span class="hljs-title">returns</span> <span class="hljs-params">(bool)</span> </span>{
-        <span class="hljs-keyword">return</span> super.validPurchase() || (whitelist[msg.sender] &amp;&amp; !hasEnded());
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validPurchase</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">internal</span></span> <span class="hljs-title"><span class="hljs-keyword">constant</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">bool</span></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.validPurchase() || (whitelist[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] &amp;&amp; !hasEnded());
     }
 
 }
 
-contract MDTCrowdsale is CappedCrowdsale, WhitelistedCrowdsale {
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">MDTCrowdsale</span> <span class="hljs-keyword">is</span> <span class="hljs-title">CappedCrowdsale</span>, <span class="hljs-title">WhitelistedCrowdsale</span> </span>{
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MDTCrowdsale</span><span class="hljs-params">()</span> 
-    <span class="hljs-title">CappedCrowdsale</span><span class="hljs-params">(<span class="hljs-number">50000000000000000000000</span>)</span>
-    <span class="hljs-title">Crowdsale</span><span class="hljs-params">(block.number, block.number + <span class="hljs-number">100000</span>, <span class="hljs-number">1</span>, msg.sender)</span> </span>{ <span class="hljs-comment">// Wallet is the contract creator, to whom funds will be sent</span>
-        addToWhitelist(msg.sender);
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MDTCrowdsale</span>(<span class="hljs-params"></span>) 
+    <span class="hljs-title">CappedCrowdsale</span>(<span class="hljs-params"><span class="hljs-number">50000000000000000000000</span></span>)
+    <span class="hljs-title">Crowdsale</span>(<span class="hljs-params"><span class="hljs-built_in">block</span>.number, <span class="hljs-built_in">block</span>.number + <span class="hljs-number">100000</span>, <span class="hljs-number">1</span>, <span class="hljs-built_in">msg</span>.sender</span>) </span>{ <span class="hljs-comment">// Wallet is the contract creator, to whom funds will be sent</span>
+        addToWhitelist(<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>);
         addToWhitelist(<span class="hljs-number">0x0d5bda9db5dd36278c6a40683960ba58cac0149b</span>);
         addToWhitelist(<span class="hljs-number">0x1b6ddc637c24305b354d7c337f9126f68aad4886</span>);
     }
@@ -227,6 +227,17 @@ contract MDTCrowdsale is CappedCrowdsale, WhitelistedCrowdsale {
 
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/SWC-registry/docs/SWC-124"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/SWC-registry/docs/SWC-127"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#relationships">Relationships</a></li><li><a href="#description">Description</a></li><li><a href="#remediation">Remediation</a></li><li><a href="#references">References</a></li><li><a href="#contract-samples">Contract Samples</a><ul class="toc-headings"><li><a href="#mdtcrowdsalesol">MDTCrowdsale.sol</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-swc-entry">How to add a new SWC entry</a><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-test-case">How to add a new Test Case</a></div><div><h5>Community</h5><a href="https://discord.gg/qcNvR2r">Join the Discord channel #swc-registry</a><a href="https://github.com/ethereum/EIPs/issues/1469">EIP-1470 discussion at ethereum/EIPs</a></div><div><h5>More</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/">Back to SWC-registry repo</a></div></section><section class="copyright">Copyright © 2018 SmartContractSecurity</section><script type="text/javascript" src="https://rawgit.com/s0b0lev/SWC-registry/website/website/scripts/lineNumbers.js"></script></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
               var search = docsearch({
                 
                 apiKey: '064ab94cd5d5382009d9640000aeea98',
