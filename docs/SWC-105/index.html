@@ -207,93 +207,6 @@
 <span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[93]</span>
 
 </code></pre>
-<h3><a class="anchor" aria-hidden="true" id="constructor-correctly-namedsol"></a><a href="#constructor-correctly-namedsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>constructor_correctly_named.sol</h3>
-<pre><code class="hljs css language-Solidity"><span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">Crowdfunding</span> </span>{
-
-  <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">address</span> =&gt; <span class="hljs-keyword">uint</span>) <span class="hljs-keyword">public</span> balances;
-  <span class="hljs-keyword">address</span> <span class="hljs-keyword">public</span> owner;
-  <span class="hljs-keyword">uint256</span> INVEST_MIN = <span class="hljs-number">1</span> <span class="hljs-literal">ether</span>;
-  <span class="hljs-keyword">uint256</span> INVEST_MAX = <span class="hljs-number">10</span> <span class="hljs-literal">ether</span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">modifier</span> <span class="hljs-title">onlyOwner</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span> == owner);
-    _;
-  }
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Crowdfunding</span>(<span class="hljs-params"></span>) </span>{
-    owner = <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>;
-  }
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdrawfunds</span>(<span class="hljs-params"></span>) <span class="hljs-title">onlyOwner</span> </span>{
-    <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span> == owner);
-    <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>.transfer(this.<span class="hljs-built_in">balance</span>);
-  }
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">invest</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title">payable</span> </span>{
-    <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.value &gt; INVEST_MIN &amp;&amp; <span class="hljs-built_in">msg</span>.value &lt; INVEST_MAX);
-
-    balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] += <span class="hljs-built_in">msg</span>.value;
-  }
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getBalance</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">constant</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">uint</span></span>) </span>{
-    <span class="hljs-keyword">return</span> balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>];
-  }
-
-}
-
-</code></pre>
-<h4><a class="anchor" aria-hidden="true" id="constructor-correctly-namedyaml"></a><a href="#constructor-correctly-namedyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>constructor_correctly_named.yaml</h4>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Ether withdrawal function and correclty named constructor (not vulnerable)"</span>
-<span class="hljs-attr">issues:</span>
-<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-105"</span>
-<span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
-
-</code></pre>
-<h3><a class="anchor" aria-hidden="true" id="constructor-wrongly-namedsol"></a><a href="#constructor-wrongly-namedsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>constructor_wrongly_named.sol</h3>
-<pre><code class="hljs css language-Solidity"><span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">Crowdfunding</span> </span>{
-
-  <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">address</span> =&gt; <span class="hljs-keyword">uint</span>) <span class="hljs-keyword">public</span> balances;
-  <span class="hljs-keyword">address</span> <span class="hljs-keyword">public</span> owner;
-  <span class="hljs-keyword">uint256</span> INVEST_MIN = <span class="hljs-number">1</span> <span class="hljs-literal">ether</span>;
-  <span class="hljs-keyword">uint256</span> INVEST_MAX = <span class="hljs-number">10</span> <span class="hljs-literal">ether</span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">modifier</span> <span class="hljs-title">onlyOwner</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span> == owner);
-    _;
-  }
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">crowdfunding</span>(<span class="hljs-params"></span>) </span>{
-    owner = <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>;
-  }
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdrawfunds</span>(<span class="hljs-params"></span>) <span class="hljs-title">onlyOwner</span> </span>{
-    <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>.transfer(this.<span class="hljs-built_in">balance</span>);
-  }
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">invest</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title">payable</span> </span>{
-    <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.value &gt; INVEST_MIN &amp;&amp; <span class="hljs-built_in">msg</span>.value &lt; INVEST_MAX);
-
-    balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] += <span class="hljs-built_in">msg</span>.value;
-  }
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getBalance</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">constant</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">uint</span></span>) </span>{
-    <span class="hljs-keyword">return</span> balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>];
-  }
-
-}
-
-</code></pre>
-<h4><a class="anchor" aria-hidden="true" id="constructor-wrongly-namedyaml"></a><a href="#constructor-wrongly-namedyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>constructor_wrongly_named.yaml</h4>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Ether withdrawal function and wrongly named constructor (vulnerable)"</span>
-<span class="hljs-attr">issues:</span>
-<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-105"</span>
-<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
-<span class="hljs-attr">  locations:</span>
-<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[722]</span>
-<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[18]</span>
-
-
-</code></pre>
 <h3><a class="anchor" aria-hidden="true" id="multiowned-not-vulnerablesol"></a><a href="#multiowned-not-vulnerablesol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>multiowned_not_vulnerable.sol</h3>
 <pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.23</span>;
 
@@ -442,7 +355,7 @@
 
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="simple-ether-drainyaml"></a><a href="#simple-ether-drainyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>simple_ether_drain.yaml</h4>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Ether withdrawal function and correclty named constructor (not vulnerable)"</span>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Anybody can withdraw all Ether from the contract account"</span>
 <span class="hljs-attr">issues:</span>
 <span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-105"</span>
 <span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
@@ -451,7 +364,203 @@
 <span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[4]</span>
 
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/SWC-registry/docs/SWC-104"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/SWC-registry/docs/SWC-106"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#relationships">Relationships</a></li><li><a href="#description">Description</a></li><li><a href="#remediation">Remediation</a></li><li><a href="#references">References</a></li><li><a href="#contract-samples">Contract Samples</a><ul class="toc-headings"><li><a href="#rubixisol">rubixi.sol</a></li><li><a href="#constructor-correctly-namedsol">constructor_correctly_named.sol</a></li><li><a href="#constructor-wrongly-namedsol">constructor_wrongly_named.sol</a></li><li><a href="#multiowned-not-vulnerablesol">multiowned_not_vulnerable.sol</a></li><li><a href="#multiowned-vulnerablesol">multiowned_vulnerable.sol</a></li><li><a href="#simple-ether-drainsol">simple_ether_drain.sol</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-swc-entry">How to add a new SWC entry</a><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-test-case">How to add a new Test Case</a></div><div><h5>Community</h5><a href="https://discord.gg/qcNvR2r">Join the Discord channel #swc-registry</a><a href="https://github.com/ethereum/EIPs/issues/1469">EIP-1470 discussion at ethereum/EIPs</a></div><div><h5>More</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/">Back to SWC-registry repo</a></div></section><section class="copyright">Copyright © 2018 SmartContractSecurity</section><script type="text/javascript" src="https://rawgit.com/s0b0lev/SWC-registry/website/website/scripts/lineNumbers.js"></script></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+<h3><a class="anchor" aria-hidden="true" id="wallet-01-oksol"></a><a href="#wallet-01-oksol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>wallet_01_ok.sol</h3>
+<pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.24</span>;
+
+<span class="hljs-comment">/* User can add pay in and withdraw Ether.
+   Nobody can withdraw more Ether than they paid in.
+*/</span>
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">Wallet</span> </span>{
+    <span class="hljs-keyword">address</span> creator;
+    
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">address</span> =&gt; <span class="hljs-keyword">uint256</span>) balances;
+
+    constructor() <span class="hljs-keyword">public</span> {
+        creator = <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deposit</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title">payable</span> </span>{
+        <span class="hljs-keyword">assert</span>(balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] + <span class="hljs-built_in">msg</span>.value &gt; balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>]);
+        balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] += <span class="hljs-built_in">msg</span>.value;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdraw</span>(<span class="hljs-params"><span class="hljs-keyword">uint256</span> amount</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        <span class="hljs-keyword">require</span>(amount &lt;= balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>]);
+        <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>.transfer(amount);
+        balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] -= amount;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">refund</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>.transfer(balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>]);
+        balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] = <span class="hljs-number">0</span>;
+    }
+
+    <span class="hljs-comment">// In an emergency the owner can migrate  allfunds to a different address.</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">migrateTo</span>(<span class="hljs-params"><span class="hljs-keyword">address</span> to</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        <span class="hljs-keyword">require</span>(creator == <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>);
+        to.transfer(<span class="hljs-built_in">this</span>.<span class="hljs-built_in">balance</span>);
+    }
+
+}
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="wallet-01-okyaml"></a><a href="#wallet-01-okyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>wallet_01_ok.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"User can withdraw Ether, but not more than they paid in"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-105"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="wallet-02-refund-nosubsol"></a><a href="#wallet-02-refund-nosubsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>wallet_02_refund_nosub.sol</h3>
+<pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.24</span>;
+
+<span class="hljs-comment">/* User can add pay in and withdraw Ether.
+   Unfortunately the developer forgot set the user's balance to 0 when refund() is called.
+   An attacker can pay in a small amount of Ether and call refund() repeatedly to empty the contract.
+*/</span>
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">Wallet</span> </span>{
+    <span class="hljs-keyword">address</span> creator;
+    
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">address</span> =&gt; <span class="hljs-keyword">uint256</span>) balances;
+
+    constructor() <span class="hljs-keyword">public</span> {
+        creator = <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deposit</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title">payable</span> </span>{
+        <span class="hljs-keyword">assert</span>(balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] + <span class="hljs-built_in">msg</span>.value &gt; balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>]);
+        balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] += <span class="hljs-built_in">msg</span>.value;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdraw</span>(<span class="hljs-params"><span class="hljs-keyword">uint256</span> amount</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        <span class="hljs-keyword">require</span>(amount &lt;= balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>]);
+        <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>.transfer(amount);
+        balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] -= amount;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">refund</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>.transfer(balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>]);
+    }
+
+    <span class="hljs-comment">// In an emergency the owner can migrate  allfunds to a different address.</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">migrateTo</span>(<span class="hljs-params"><span class="hljs-keyword">address</span> to</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        <span class="hljs-keyword">require</span>(creator == <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>);
+        to.transfer(<span class="hljs-built_in">this</span>.<span class="hljs-built_in">balance</span>);
+    }
+
+}
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="wallet-02-refund-nosubyaml"></a><a href="#wallet-02-refund-nosubyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>wallet_02_refund_nosub.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Attacker can pay in a small amount of Ether and call refund() repeatedly to empty the contract"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-105"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[776]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[29]</span>
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="wallet-03-wrong-constructorsol"></a><a href="#wallet-03-wrong-constructorsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>wallet_03_wrong_constructor.sol</h3>
+<pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.24</span>;
+
+<span class="hljs-comment">/* User can add pay in and withdraw Ether.
+   The constructor is wrongly named, so anyone can become 'creator' and withdraw all funds.
+*/</span>
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">Wallet</span> </span>{
+    <span class="hljs-keyword">address</span> creator;
+    
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">address</span> =&gt; <span class="hljs-keyword">uint256</span>) balances;
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initWallet</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        creator = <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deposit</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title">payable</span> </span>{
+        <span class="hljs-keyword">assert</span>(balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] + <span class="hljs-built_in">msg</span>.value &gt; balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>]);
+        balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] += <span class="hljs-built_in">msg</span>.value;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdraw</span>(<span class="hljs-params"><span class="hljs-keyword">uint256</span> amount</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        <span class="hljs-keyword">require</span>(amount &lt;= balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>]);
+        <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>.transfer(amount);
+        balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] -= amount;
+    }
+
+    <span class="hljs-comment">// In an emergency the owner can migrate  allfunds to a different address.</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">migrateTo</span>(<span class="hljs-params"><span class="hljs-keyword">address</span> to</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        <span class="hljs-keyword">require</span>(creator == <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>);
+        to.transfer(<span class="hljs-built_in">this</span>.<span class="hljs-built_in">balance</span>);
+    }
+
+}
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="wallet-03-wrong-constructoryaml"></a><a href="#wallet-03-wrong-constructoryaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>wallet_03_wrong_constructor.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Attacker can become 'creator' by calling initWallet() and withdraw all funds"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-105"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[705]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[31]</span>
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="wallet-04-confused-signsol"></a><a href="#wallet-04-confused-signsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>wallet_04_confused_sign.sol</h3>
+<pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.24</span>;
+
+<span class="hljs-comment">/* User can add pay in and withdraw Ether.
+   Unfortunatelty, the developer was drunk and used the wrong comparison operator in "withdraw()"
+   Anybody can withdraw arbitrary amounts of Ether :()
+*/</span>
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">Wallet</span> </span>{
+    <span class="hljs-keyword">address</span> creator;
+    
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">address</span> =&gt; <span class="hljs-keyword">uint256</span>) balances;
+
+    constructor() <span class="hljs-keyword">public</span> {
+        creator = <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deposit</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title">payable</span> </span>{
+        <span class="hljs-keyword">assert</span>(balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] + <span class="hljs-built_in">msg</span>.value &gt; balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>]);
+        balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] += <span class="hljs-built_in">msg</span>.value;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdraw</span>(<span class="hljs-params"><span class="hljs-keyword">uint256</span> amount</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        <span class="hljs-keyword">require</span>(amount &gt;= balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>]);
+        <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>.transfer(amount);
+        balances[<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>] -= amount;
+    }
+
+    <span class="hljs-comment">// In an emergency the owner can migrate  allfunds to a different address.</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">migrateTo</span>(<span class="hljs-params"><span class="hljs-keyword">address</span> to</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        <span class="hljs-keyword">require</span>(creator == <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>);
+        to.transfer(<span class="hljs-built_in">this</span>.<span class="hljs-built_in">balance</span>);
+    }
+
+}
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="wallet-04-confused-signyaml"></a><a href="#wallet-04-confused-signyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>wallet_04_confused_sign.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Attacker can withdraw unlimited funds due erroneous comparison operator in withdraw function"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-105"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[340]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[24]</span>
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/SWC-registry/docs/SWC-104"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/SWC-registry/docs/SWC-106"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#relationships">Relationships</a></li><li><a href="#description">Description</a></li><li><a href="#remediation">Remediation</a></li><li><a href="#references">References</a></li><li><a href="#contract-samples">Contract Samples</a><ul class="toc-headings"><li><a href="#rubixisol">rubixi.sol</a></li><li><a href="#multiowned-not-vulnerablesol">multiowned_not_vulnerable.sol</a></li><li><a href="#multiowned-vulnerablesol">multiowned_vulnerable.sol</a></li><li><a href="#simple-ether-drainsol">simple_ether_drain.sol</a></li><li><a href="#wallet-01-oksol">wallet_01_ok.sol</a></li><li><a href="#wallet-02-refund-nosubsol">wallet_02_refund_nosub.sol</a></li><li><a href="#wallet-03-wrong-constructorsol">wallet_03_wrong_constructor.sol</a></li><li><a href="#wallet-04-confused-signsol">wallet_04_confused_sign.sol</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-swc-entry">How to add a new SWC entry</a><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-test-case">How to add a new Test Case</a></div><div><h5>Community</h5><a href="https://discord.gg/qcNvR2r">Join the Discord channel #swc-registry</a><a href="https://github.com/ethereum/EIPs/issues/1469">EIP-1470 discussion at ethereum/EIPs</a></div><div><h5>More</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/">Back to SWC-registry repo</a></div></section><section class="copyright">Copyright © 2018 SmartContractSecurity</section><script type="text/javascript" src="https://rawgit.com/s0b0lev/SWC-registry/website/website/scripts/lineNumbers.js"></script></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;
