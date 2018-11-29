@@ -167,6 +167,295 @@ pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.
 
 
 </code></pre>
+<h3><a class="anchor" aria-hidden="true" id="constructor-createsol"></a><a href="#constructor-createsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>constructor_create.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ */</span>
+
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">ConstructorCreate</span></span>{
+    B b = <span class="hljs-keyword">new</span> B();
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"></span>)</span>{
+        <span class="hljs-keyword">assert</span>(b.foo() == <span class="hljs-number">10</span>);
+    }
+
+}
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">B</span></span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">returns</span></span>(<span class="hljs-params"><span class="hljs-keyword">uint</span></span>)</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-number">11</span>;
+    }
+}
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="constructor-createyaml"></a><a href="#constructor-createyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>constructor_create.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Assert violation after call to concretely created contract"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[277]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[12]</span>
+
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="constructor-create-argumentsol"></a><a href="#constructor-create-argumentsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>constructor_create_argument.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ */</span>
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">ConstructorCreateArgument</span></span>{
+    B b = <span class="hljs-keyword">new</span> B(<span class="hljs-number">11</span>);
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"></span>)</span>{
+        <span class="hljs-keyword">assert</span>(b.foo() == <span class="hljs-number">10</span>);
+    }
+
+}
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">B</span></span>{
+
+    <span class="hljs-keyword">uint</span> x_;
+    constructor(<span class="hljs-keyword">uint</span> x){
+        x_ = x;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">returns</span></span>(<span class="hljs-params"><span class="hljs-keyword">uint</span></span>)</span>{
+        <span class="hljs-keyword">return</span> x_;
+    }
+}
+
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="constructor-create-argumentyaml"></a><a href="#constructor-create-argumentyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>constructor_create_argument.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Assert violation after call to concretely created contract with argument"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[277]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[11]</span>
+
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="constructor-create-modifiablesol"></a><a href="#constructor-create-modifiablesol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>constructor_create_modifiable.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ * Assert violation with 2 message calls:
+ * - B.set_x(X): X != 10
+ * - ContructorCreateModifiable.check()
+ */</span>
+
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">ContructorCreateModifiable</span></span>{
+    B b = <span class="hljs-keyword">new</span> B(<span class="hljs-number">10</span>);
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"></span>)</span>{
+        <span class="hljs-keyword">assert</span>(b.foo() == <span class="hljs-number">10</span>);
+    }
+
+}
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">B</span></span>{
+
+    <span class="hljs-keyword">uint</span> x_;
+    constructor(<span class="hljs-keyword">uint</span> x){
+        x_ = x;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">returns</span></span>(<span class="hljs-params"><span class="hljs-keyword">uint</span></span>)</span>{
+        <span class="hljs-keyword">return</span> x_;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">set_x</span>(<span class="hljs-params"><span class="hljs-keyword">uint</span> x</span>)</span>{
+        x_ = x;
+    }
+}
+
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="constructor-create-modifiableyaml"></a><a href="#constructor-create-modifiableyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>constructor_create_modifiable.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Assert violation after call to concretely created contract that can be modified"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[277]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[15]</span>
+
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="gas-modelsol"></a><a href="#gas-modelsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>gas_model.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ */</span>
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">GasModel</span></span>{
+    <span class="hljs-keyword">uint</span> x = <span class="hljs-number">100</span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"></span>)</span>{
+        <span class="hljs-keyword">uint</span> a = gasleft();
+        x = x + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">uint</span> b = gasleft();
+        <span class="hljs-keyword">assert</span>(b &gt; a);
+    }
+}
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="gas-modelyaml"></a><a href="#gas-modelyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>gas_model.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Gas modeling check"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[112]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[13]</span>
+
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="gas-model-fixedsol"></a><a href="#gas-model-fixedsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>gas_model_fixed.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ */</span>
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">GasModelFixed</span></span>{
+    <span class="hljs-keyword">uint</span> x = <span class="hljs-number">100</span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"></span>)</span>{
+        <span class="hljs-keyword">uint</span> a = gasleft();
+        x = x + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">uint</span> b = gasleft();
+        <span class="hljs-keyword">assert</span>(b &lt; a);
+    }
+}
+
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="gas-model-fixedyaml"></a><a href="#gas-model-fixedyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>gas_model_fixed.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Gas modeling check fixed"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[]</span>
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="mapping-perfomance-2sol"></a><a href="#mapping-perfomance-2sol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>mapping_perfomance_2.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ */</span>
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">MappingPerformance2sets</span></span>{
+
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m0;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m1;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m2;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m3;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m4;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m5;
+    <span class="hljs-keyword">uint</span> b;
+
+    constructor(){
+        b = <span class="hljs-number">10</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">set</span>(<span class="hljs-params"><span class="hljs-keyword">bytes32</span> a, <span class="hljs-keyword">uint</span> cond</span>)</span>{
+        <span class="hljs-keyword">if</span>(cond == <span class="hljs-number">0</span>){
+            m0[a] = <span class="hljs-number">5</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cond == <span class="hljs-number">1</span>){
+            m1[a] = <span class="hljs-number">5</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cond == <span class="hljs-number">2</span>){
+            m2[a] = <span class="hljs-number">5</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cond == <span class="hljs-number">3</span>){
+            m3[a] = <span class="hljs-number">5</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cond == <span class="hljs-number">4</span>){
+            m4[a] = <span class="hljs-number">5</span>;
+        }
+    }
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"><span class="hljs-keyword">bytes32</span> a0, <span class="hljs-keyword">uint</span> cond0,
+                  <span class="hljs-keyword">bytes32</span> a1, <span class="hljs-keyword">uint</span> cond1, <span class="hljs-keyword">bytes32</span> a</span>)</span>{
+                      set(a0, cond0);
+                      set(a1, cond1);
+                      <span class="hljs-keyword">assert</span>(m5[a] == <span class="hljs-number">0</span>);
+    }
+}
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="mapping-perfomance-2yaml"></a><a href="#mapping-perfomance-2yaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>mapping_perfomance_2.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Mapping performance test."</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[]</span>
+
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="mapping-performance-1sol"></a><a href="#mapping-performance-1sol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>mapping_performance_1.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ */</span>
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">MappingPerformance1set</span></span>{
+
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m0;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m1;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m2;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m3;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m4;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m5;
+    <span class="hljs-keyword">uint</span> b;
+
+    constructor(){
+        b = <span class="hljs-number">10</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">set</span>(<span class="hljs-params"><span class="hljs-keyword">bytes32</span> a, <span class="hljs-keyword">uint</span> cond</span>)</span>{
+        <span class="hljs-keyword">if</span>(cond == <span class="hljs-number">0</span>){
+            m0[a] = <span class="hljs-number">5</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cond == <span class="hljs-number">1</span>){
+            m1[a] = <span class="hljs-number">5</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cond == <span class="hljs-number">2</span>){
+            m2[a] = <span class="hljs-number">5</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cond == <span class="hljs-number">3</span>){
+            m3[a] = <span class="hljs-number">5</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cond == <span class="hljs-number">4</span>){
+            m4[a] = <span class="hljs-number">5</span>;
+        }
+    }
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"><span class="hljs-keyword">bytes32</span> a0, <span class="hljs-keyword">uint</span> cond0, <span class="hljs-keyword">bytes32</span> a</span>)</span>{
+                      set(a0, cond0);
+                      <span class="hljs-keyword">assert</span>(m5[a] == <span class="hljs-number">0</span>);
+    }
+}
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="mapping-performance-1yaml"></a><a href="#mapping-performance-1yaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>mapping_performance_1.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Mapping performance test."</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[]</span>
+
+</code></pre>
 <h3><a class="anchor" aria-hidden="true" id="out-of-bounds-exceptionsol"></a><a href="#out-of-bounds-exceptionsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>out-of-bounds-exception.sol</h3>
 <pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
 
@@ -186,6 +475,182 @@ pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.
 <span class="hljs-attr">issues:</span>
 <span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
 <span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
+
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="runtime-create-user-inputsol"></a><a href="#runtime-create-user-inputsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>runtime_create_user_input.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ */</span>
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">RuntimeCreateUserInput</span></span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"><span class="hljs-keyword">uint</span> x</span>)</span>{
+        B b = <span class="hljs-keyword">new</span> B(x);
+        <span class="hljs-keyword">assert</span>(b.foo() == <span class="hljs-number">10</span>);
+    }
+
+}
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">B</span></span>{
+
+    <span class="hljs-keyword">uint</span> x_;
+    constructor(<span class="hljs-keyword">uint</span> x){
+        x_ = x;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">returns</span></span>(<span class="hljs-params"><span class="hljs-keyword">uint</span></span>)</span>{
+        <span class="hljs-keyword">return</span> x_;
+    }
+
+}
+
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="runtime-create-user-inputyaml"></a><a href="#runtime-create-user-inputyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>runtime_create_user_input.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Assert violation after call to contract created with user input during runtime"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[296]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[11]</span>
+
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="runtime-user-input-callsol"></a><a href="#runtime-user-input-callsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>runtime_user_input_call.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ */</span>
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">RuntimeUserInputCall</span></span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"><span class="hljs-keyword">address</span> b</span>)</span>{
+        <span class="hljs-keyword">assert</span>(B(b).foo() == <span class="hljs-number">10</span>);
+    }
+
+}
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">B</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">returns</span></span>(<span class="hljs-params"><span class="hljs-keyword">uint</span></span>)</span>;
+}
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="runtime-user-input-callyaml"></a><a href="#runtime-user-input-callyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>runtime_user_input_call.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Assert violation after call to user input contract"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[269]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[10]</span>
+
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="sha-of-sha-2-mappingssol"></a><a href="#sha-of-sha-2-mappingssol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>sha_of_sha_2_mappings.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ */</span>
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">ShaOfSha2Mappings</span></span>{
+
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) n;
+
+    constructor(){
+        m[keccak256(abi.encode(<span class="hljs-string">"AAA"</span>, <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>))] = <span class="hljs-number">100</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"><span class="hljs-keyword">address</span> a</span>)</span>{
+        <span class="hljs-keyword">assert</span>(n[keccak256(abi.encode(<span class="hljs-string">"BBB"</span>, a))] == <span class="hljs-number">0</span>);
+    }
+
+}
+
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="sha-of-sha-2-mappingsyaml"></a><a href="#sha-of-sha-2-mappingsyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>sha_of_sha_2_mappings.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Check of non-collission between two maps that use SHA as a keys"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[]</span>
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="sha-of-sha-collisionsol"></a><a href="#sha-of-sha-collisionsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>sha_of_sha_collision.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ * Assert violation with 2 message calls:
+ * - set(66)
+ * - check(0x4100000000000000000000000000000000000000000000000000000000000000)
+ */</span>
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">ShaOfShaCollission</span></span>{
+
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m;
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">set</span>(<span class="hljs-params"><span class="hljs-keyword">uint</span> x</span>)</span>{
+        m[keccak256(abi.encodePacked(<span class="hljs-string">"A"</span>, x))] = <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"><span class="hljs-keyword">uint</span> x</span>)</span>{
+        <span class="hljs-keyword">assert</span>(m[keccak256(abi.encodePacked(x, <span class="hljs-string">"B"</span>))] == <span class="hljs-number">0</span>);
+    }
+
+}
+
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="sha-of-sha-collisionyaml"></a><a href="#sha-of-sha-collisionyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>sha_of_sha_collision.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Check of collission in map that use SHA as a keys"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[319]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[18]</span>
+
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="sha-of-sha-concretesol"></a><a href="#sha-of-sha-concretesol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>sha_of_sha_concrete.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
+ * @source: ChainSecurity
+ * @author: Anton Permenev
+ */</span>
+pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.19</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">ShaOfShaConcrete</span></span>{
+
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">bytes32</span>=&gt;<span class="hljs-keyword">uint</span>) m;
+    <span class="hljs-keyword">uint</span> b;
+
+    constructor(){
+        b = <span class="hljs-number">1</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"><span class="hljs-keyword">uint</span> x</span>)</span>{
+        <span class="hljs-keyword">assert</span>(m[keccak256(abi.encodePacked(x, <span class="hljs-string">"B"</span>))] == <span class="hljs-number">0</span>);
+    }
+
+}
+
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="sha-of-sha-concreteyaml"></a><a href="#sha-of-sha-concreteyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>sha_of_sha_concrete.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Check the mapping that uses the SHA value as a key does not collide with concretes"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[]</span>
 
 
 </code></pre>
@@ -231,7 +696,36 @@ pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.
 <span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[28]</span>
 
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/SWC-registry/docs/SWC-109"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/SWC-registry/docs/SWC-111"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#relationships">Relationships</a></li><li><a href="#description">Description</a></li><li><a href="#remediation">Remediation</a></li><li><a href="#references">References</a></li><li><a href="#contract-samples">Contract Samples</a><ul class="toc-headings"><li><a href="#assert-constructorsol">assert_constructor.sol</a></li><li><a href="#assert-minimalsol">assert_minimal.sol</a></li><li><a href="#assert-multitx-1sol">assert_multitx_1.sol</a></li><li><a href="#assert-multitx-2sol">assert_multitx_2.sol</a></li><li><a href="#out-of-bounds-exceptionsol">out-of-bounds-exception.sol</a></li><li><a href="#token-with-backdoorsol">token-with-backdoor.sol</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-swc-entry">How to add a new SWC entry</a><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-test-case">How to add a new Test Case</a></div><div><h5>Community</h5><a href="https://discord.gg/qcNvR2r">Join the Discord channel #swc-registry</a><a href="https://github.com/ethereum/EIPs/issues/1469">EIP-1470 discussion at ethereum/EIPs</a></div><div><h5>More</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/">Back to SWC-registry repo</a></div></section><section class="copyright">Copyright © 2018 SmartContractSecurity</section><script type="text/javascript" src="https://rawgit.com/s0b0lev/SWC-registry/website/website/scripts/lineNumbers.js"></script></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+<h3><a class="anchor" aria-hidden="true" id="two-mapppingssol"></a><a href="#two-mapppingssol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>two_mapppings.sol</h3>
+<pre><code class="hljs css language-Solidity"><span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">TwoMappings</span></span>{
+
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">uint</span>=&gt;<span class="hljs-keyword">uint</span>) m;
+    <span class="hljs-keyword">mapping</span>(<span class="hljs-keyword">uint</span>=&gt;<span class="hljs-keyword">uint</span>) n;
+
+    constructor(){
+        m[<span class="hljs-number">10</span>] = <span class="hljs-number">100</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"><span class="hljs-keyword">uint</span> a</span>)</span>{
+        <span class="hljs-keyword">assert</span>(n[a] == <span class="hljs-number">0</span>);
+    }
+
+}
+
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="two-mapppingsyaml"></a><a href="#two-mapppingsyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>two_mapppings.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">"Check that two mappings are not colliding with each other"</span>
+<span class="hljs-attr">issues:</span>
+<span class="hljs-attr">- id:</span> <span class="hljs-string">"SWC-110"</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">  locations:</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">[]</span>
+<span class="hljs-attr">    line_numbers:</span> <span class="hljs-string">[]</span>
+
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/SWC-registry/docs/SWC-109"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/SWC-registry/docs/SWC-111"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#relationships">Relationships</a></li><li><a href="#description">Description</a></li><li><a href="#remediation">Remediation</a></li><li><a href="#references">References</a></li><li><a href="#contract-samples">Contract Samples</a><ul class="toc-headings"><li><a href="#assert-constructorsol">assert_constructor.sol</a></li><li><a href="#assert-minimalsol">assert_minimal.sol</a></li><li><a href="#assert-multitx-1sol">assert_multitx_1.sol</a></li><li><a href="#assert-multitx-2sol">assert_multitx_2.sol</a></li><li><a href="#constructor-createsol">constructor_create.sol</a></li><li><a href="#constructor-create-argumentsol">constructor_create_argument.sol</a></li><li><a href="#constructor-create-modifiablesol">constructor_create_modifiable.sol</a></li><li><a href="#gas-modelsol">gas_model.sol</a></li><li><a href="#gas-model-fixedsol">gas_model_fixed.sol</a></li><li><a href="#mapping-perfomance-2sol">mapping_perfomance_2.sol</a></li><li><a href="#mapping-performance-1sol">mapping_performance_1.sol</a></li><li><a href="#out-of-bounds-exceptionsol">out-of-bounds-exception.sol</a></li><li><a href="#runtime-create-user-inputsol">runtime_create_user_input.sol</a></li><li><a href="#runtime-user-input-callsol">runtime_user_input_call.sol</a></li><li><a href="#sha-of-sha-2-mappingssol">sha_of_sha_2_mappings.sol</a></li><li><a href="#sha-of-sha-collisionsol">sha_of_sha_collision.sol</a></li><li><a href="#sha-of-sha-concretesol">sha_of_sha_concrete.sol</a></li><li><a href="#token-with-backdoorsol">token-with-backdoor.sol</a></li><li><a href="#two-mapppingssol">two_mapppings.sol</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-swc-entry">How to add a new SWC entry</a><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-test-case">How to add a new Test Case</a></div><div><h5>Community</h5><a href="https://discord.gg/qcNvR2r">Join the Discord channel #swc-registry</a><a href="https://github.com/ethereum/EIPs/issues/1469">EIP-1470 discussion at ethereum/EIPs</a></div><div><h5>More</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/">Back to SWC-registry repo</a></div></section><section class="copyright">Copyright © 2018 SmartContractSecurity</section><script type="text/javascript" src="https://rawgit.com/s0b0lev/SWC-registry/website/website/scripts/lineNumbers.js"></script></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;
