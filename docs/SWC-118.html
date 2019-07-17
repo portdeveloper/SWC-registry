@@ -46,97 +46,6 @@ This behavior sometimes leads to security issues, in particular when smart contr
  * Modified by Gerhard Wagner
  */</span>
 
-pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.24</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">Missing</span></span>{
-    <span class="hljs-keyword">address</span> <span class="hljs-keyword">private</span> owner;
-
-    <span class="hljs-function"><span class="hljs-keyword">modifier</span> <span class="hljs-title">onlyowner</span> </span>{
-        <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>==owner);
-        _;
-    }
-
-    <span class="hljs-comment">// The name of the constructor should be Missing</span>
-    <span class="hljs-comment">// Anyone can call the IamMissing once the contract is deployed</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IamMissing</span>(<span class="hljs-params"></span>)
-        <span class="hljs-title"><span class="hljs-keyword">public</span></span> 
-    </span>{
-        owner = <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>;
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) <span class="hljs-title">payable</span> </span>{} 
-
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdraw</span>(<span class="hljs-params"></span>) 
-        <span class="hljs-title"><span class="hljs-keyword">public</span></span> 
-        <span class="hljs-title">onlyowner</span>
-    </span>{
-       owner.transfer(<span class="hljs-built_in">this</span>.<span class="hljs-built_in">balance</span>);
-    }
-}
-
-</code></pre>
-<h4><a class="anchor" aria-hidden="true" id="incorrect-constructor-name1yaml"></a><a href="#incorrect-constructor-name1yaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name1.yaml</h4>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Invalid</span> <span class="hljs-string">contructor</span> <span class="hljs-string">name</span> <span class="hljs-string">variant</span> <span class="hljs-number">1</span>
-<span class="hljs-attr">issues:</span>
-<span class="hljs-attr">- id:</span> <span class="hljs-string">SWC-118</span>
-<span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
-<span class="hljs-attr">  locations:</span>
-<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
-<span class="hljs-attr">    line_numbers:</span>
-      <span class="hljs-string">incorrect_constructor_name1.sol:</span> <span class="hljs-string">[19]</span>
-
-</code></pre>
-<h3><a class="anchor" aria-hidden="true" id="incorrect-constructor-name1-fixedsol"></a><a href="#incorrect-constructor-name1-fixedsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name1_fixed.sol</h3>
-<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
- * @source: https://github.com/trailofbits/not-so-smart-contracts/blob/master/wrong_constructor_name/incorrect_constructor.sol
- * @author: Ben Perez
- * Modified by Gerhard Wagner
- */</span>
-
-pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.24</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">Missing</span></span>{
-    <span class="hljs-keyword">address</span> <span class="hljs-keyword">private</span> owner;
-
-    <span class="hljs-function"><span class="hljs-keyword">modifier</span> <span class="hljs-title">onlyowner</span> </span>{
-        <span class="hljs-keyword">require</span>(<span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>==owner);
-        _;
-    }
-
-    <span class="hljs-comment">// The name of the constructor should be Missing</span>
-    <span class="hljs-comment">// Anyone can call the IamMissing once the contract is deployed</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Missing</span>(<span class="hljs-params"></span>)
-        <span class="hljs-title"><span class="hljs-keyword">public</span></span>
-    </span>{
-        owner = <span class="hljs-built_in">msg</span>.<span class="hljs-built_in">sender</span>;
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) <span class="hljs-title">payable</span> </span>{}
-
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdraw</span>(<span class="hljs-params"></span>)
-        <span class="hljs-title"><span class="hljs-keyword">public</span></span>
-        <span class="hljs-title">onlyowner</span>
-    </span>{
-       owner.transfer(<span class="hljs-built_in">this</span>.<span class="hljs-built_in">balance</span>);
-    }
-}
-
-</code></pre>
-<h4><a class="anchor" aria-hidden="true" id="incorrect-constructor-name1-fixedyaml"></a><a href="#incorrect-constructor-name1-fixedyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name1_fixed.yaml</h4>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Invalid</span> <span class="hljs-string">contructor</span> <span class="hljs-string">name</span> <span class="hljs-string">variant</span> <span class="hljs-number">1</span>
-<span class="hljs-attr">issues:</span>
-<span class="hljs-attr">- id:</span> <span class="hljs-string">SWC-118</span>
-<span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
-<span class="hljs-attr">  locations:</span> <span class="hljs-string">[]</span>
-
-</code></pre>
-<h3><a class="anchor" aria-hidden="true" id="incorrect-constructor-name2sol"></a><a href="#incorrect-constructor-name2sol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name2.sol</h3>
-<pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
- * @source: https://github.com/trailofbits/not-so-smart-contracts/blob/master/wrong_constructor_name/incorrect_constructor.sol
- * @author: Ben Perez
- * Modified by Gerhard Wagner
- */</span>
-
 
 pragma solidity <span class="hljs-number">0.4</span><span class="hljs-number">.24</span>;
 
@@ -165,18 +74,18 @@ pragma solidity <span class="hljs-number">0.4</span><span class="hljs-number">.2
 }
 
 </code></pre>
-<h4><a class="anchor" aria-hidden="true" id="incorrect-constructor-name2yaml"></a><a href="#incorrect-constructor-name2yaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name2.yaml</h4>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Invalid</span> <span class="hljs-string">contructor</span> <span class="hljs-string">name</span> <span class="hljs-string">variant</span> <span class="hljs-number">2</span>
+<h4><a class="anchor" aria-hidden="true" id="incorrect-constructor-name1yaml"></a><a href="#incorrect-constructor-name1yaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name1.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Invalid</span> <span class="hljs-string">constructor</span> <span class="hljs-string">name</span> <span class="hljs-string">variant</span> <span class="hljs-number">1</span>
 <span class="hljs-attr">issues:</span>
 <span class="hljs-attr">- id:</span> <span class="hljs-string">SWC-118</span>
 <span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
 <span class="hljs-attr">  locations:</span>
 <span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
 <span class="hljs-attr">    line_numbers:</span>
-      <span class="hljs-string">incorrect_constructor_name2.sol:</span> <span class="hljs-string">[18]</span>
+      <span class="hljs-string">incorrect_constructor_name1.sol:</span> <span class="hljs-string">[18]</span>
 
 </code></pre>
-<h3><a class="anchor" aria-hidden="true" id="incorrect-constructor-name2-fixedsol"></a><a href="#incorrect-constructor-name2-fixedsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name2_fixed.sol</h3>
+<h3><a class="anchor" aria-hidden="true" id="incorrect-constructor-name1-fixedsol"></a><a href="#incorrect-constructor-name1-fixedsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name1_fixed.sol</h3>
 <pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
  * @source: https://github.com/trailofbits/not-so-smart-contracts/blob/master/wrong_constructor_name/incorrect_constructor.sol
  * @author: Ben Perez
@@ -211,15 +120,15 @@ pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.
 }
 
 </code></pre>
-<h4><a class="anchor" aria-hidden="true" id="incorrect-constructor-name2-fixedyaml"></a><a href="#incorrect-constructor-name2-fixedyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name2_fixed.yaml</h4>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Invalid</span> <span class="hljs-string">contructor</span> <span class="hljs-string">name</span> <span class="hljs-string">variant</span> <span class="hljs-number">2</span>
+<h4><a class="anchor" aria-hidden="true" id="incorrect-constructor-name1-fixedyaml"></a><a href="#incorrect-constructor-name1-fixedyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name1_fixed.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Invalid</span> <span class="hljs-string">constructor</span> <span class="hljs-string">name</span> <span class="hljs-string">variant</span> <span class="hljs-number">1</span> <span class="hljs-string">fixed</span>
 <span class="hljs-attr">issues:</span>
 <span class="hljs-attr">- id:</span> <span class="hljs-string">SWC-118</span>
 <span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
 <span class="hljs-attr">  locations:</span> <span class="hljs-string">[]</span>
 
 </code></pre>
-<h3><a class="anchor" aria-hidden="true" id="incorrect-constructor-name3sol"></a><a href="#incorrect-constructor-name3sol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name3.sol</h3>
+<h3><a class="anchor" aria-hidden="true" id="incorrect-constructor-name2sol"></a><a href="#incorrect-constructor-name2sol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name2.sol</h3>
 <pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
  * @source: https://github.com/trailofbits/not-so-smart-contracts/blob/master/wrong_constructor_name/incorrect_constructor.sol
  * @author: Ben Perez
@@ -254,18 +163,18 @@ pragma solidity <span class="hljs-number">0.4</span><span class="hljs-number">.2
 }
 
 </code></pre>
-<h4><a class="anchor" aria-hidden="true" id="incorrect-constructor-name3yaml"></a><a href="#incorrect-constructor-name3yaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name3.yaml</h4>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Invalid</span> <span class="hljs-string">contructor</span> <span class="hljs-string">name</span> <span class="hljs-string">variant</span> <span class="hljs-number">3</span>
+<h4><a class="anchor" aria-hidden="true" id="incorrect-constructor-name2yaml"></a><a href="#incorrect-constructor-name2yaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name2.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Invalid</span> <span class="hljs-string">constructor</span> <span class="hljs-string">name</span> <span class="hljs-string">variant</span> <span class="hljs-number">2</span>
 <span class="hljs-attr">issues:</span>
 <span class="hljs-attr">- id:</span> <span class="hljs-string">SWC-118</span>
 <span class="hljs-attr">  count:</span> <span class="hljs-number">1</span>
 <span class="hljs-attr">  locations:</span>
 <span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
 <span class="hljs-attr">    line_numbers:</span>
-      <span class="hljs-string">incorrect_constructor_name3.sol:</span> <span class="hljs-string">[17]</span>
+      <span class="hljs-string">incorrect_constructor_name2.sol:</span> <span class="hljs-string">[17]</span>
 
 </code></pre>
-<h3><a class="anchor" aria-hidden="true" id="incorrect-constructor-name3-fixedsol"></a><a href="#incorrect-constructor-name3-fixedsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name3_fixed.sol</h3>
+<h3><a class="anchor" aria-hidden="true" id="incorrect-constructor-name2-fixedsol"></a><a href="#incorrect-constructor-name2-fixedsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name2_fixed.sol</h3>
 <pre><code class="hljs css language-Solidity"><span class="hljs-comment">/*
  * @source: https://github.com/trailofbits/not-so-smart-contracts/blob/master/wrong_constructor_name/incorrect_constructor.sol
  * @author: Ben Perez
@@ -300,15 +209,15 @@ pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.
 }
 
 </code></pre>
-<h4><a class="anchor" aria-hidden="true" id="incorrect-constructor-name3-fixedyaml"></a><a href="#incorrect-constructor-name3-fixedyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name3_fixed.yaml</h4>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Invalid</span> <span class="hljs-string">contructor</span> <span class="hljs-string">name</span> <span class="hljs-string">variant</span> <span class="hljs-number">3</span>
+<h4><a class="anchor" aria-hidden="true" id="incorrect-constructor-name2-fixedyaml"></a><a href="#incorrect-constructor-name2-fixedyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>incorrect_constructor_name2_fixed.yaml</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Invalid</span> <span class="hljs-string">constructor</span> <span class="hljs-string">name</span> <span class="hljs-string">variant</span> <span class="hljs-number">2</span> <span class="hljs-string">fixed</span>
 <span class="hljs-attr">issues:</span>
 <span class="hljs-attr">- id:</span> <span class="hljs-string">SWC-118</span>
 <span class="hljs-attr">  count:</span> <span class="hljs-number">0</span>
 <span class="hljs-attr">  locations:</span> <span class="hljs-string">[]</span>
 
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/SWC-registry/docs/SWC-117"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/SWC-registry/docs/SWC-119"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#relationships">Relationships</a></li><li><a href="#description">Description</a></li><li><a href="#remediation">Remediation</a></li><li><a href="#references">References</a></li><li><a href="#contract-samples">Contract Samples</a><ul class="toc-headings"><li><a href="#incorrect-constructor-name1sol">incorrect_constructor_name1.sol</a></li><li><a href="#incorrect-constructor-name1-fixedsol">incorrect_constructor_name1_fixed.sol</a></li><li><a href="#incorrect-constructor-name2sol">incorrect_constructor_name2.sol</a></li><li><a href="#incorrect-constructor-name2-fixedsol">incorrect_constructor_name2_fixed.sol</a></li><li><a href="#incorrect-constructor-name3sol">incorrect_constructor_name3.sol</a></li><li><a href="#incorrect-constructor-name3-fixedsol">incorrect_constructor_name3_fixed.sol</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-swc-entry">How to add a new SWC entry</a><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-test-case">How to add a new Test Case</a></div><div><h5>Community</h5><a href="https://discord.gg/qcNvR2r">Join the Discord channel #swc-registry</a><a href="https://github.com/ethereum/EIPs/issues/1469">EIP-1470 discussion at ethereum/EIPs</a></div><div><h5>More</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/">Back to SWC-registry repo</a></div></section><section class="copyright">Copyright © 2019 SmartContractSecurity</section><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/SmartContractSecurity/SWC-registry@website/website/scripts/lineNumbers.js"></script></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/SWC-registry/docs/SWC-117"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/SWC-registry/docs/SWC-119"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#relationships">Relationships</a></li><li><a href="#description">Description</a></li><li><a href="#remediation">Remediation</a></li><li><a href="#references">References</a></li><li><a href="#contract-samples">Contract Samples</a><ul class="toc-headings"><li><a href="#incorrect-constructor-name1sol">incorrect_constructor_name1.sol</a></li><li><a href="#incorrect-constructor-name1-fixedsol">incorrect_constructor_name1_fixed.sol</a></li><li><a href="#incorrect-constructor-name2sol">incorrect_constructor_name2.sol</a></li><li><a href="#incorrect-constructor-name2-fixedsol">incorrect_constructor_name2_fixed.sol</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-swc-entry">How to add a new SWC entry</a><a href="https://github.com/SmartContractSecurity/SWC-registry/#creating-a-new-test-case">How to add a new Test Case</a></div><div><h5>Community</h5><a href="https://discord.gg/qcNvR2r">Join the Discord channel #swc-registry</a><a href="https://github.com/ethereum/EIPs/issues/1469">EIP-1470 discussion at ethereum/EIPs</a></div><div><h5>More</h5><a href="https://github.com/SmartContractSecurity/SWC-registry/">Back to SWC-registry repo</a></div></section><section class="copyright">Copyright © 2019 SmartContractSecurity</section><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/SmartContractSecurity/SWC-registry@website/website/scripts/lineNumbers.js"></script></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;
