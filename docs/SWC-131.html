@@ -45,87 +45,77 @@
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="contract-samples"></a><a href="#contract-samples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contract Samples</h2>
 <h3><a class="anchor" aria-hidden="true" id="unused-state-variablessol"></a><a href="#unused-state-variablessol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>unused_state_variables.sol</h3>
-<pre><code class="hljs css language-Solidity">pragma solidity &gt;=<span class="hljs-number">0.4</span><span class="hljs-number">.24</span>;
+<pre><code class="hljs css language-Solidity">pragma solidity &gt;=<span class="hljs-number">0.5</span><span class="hljs-number">.0</span>;
+pragma experimental ABIEncoderV2;
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">"./base.sol"</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">DerivedA</span> <span class="hljs-keyword">is</span> <span class="hljs-title">Base</span> </span>{
-    <span class="hljs-comment">// overrides e of Base (base.sol)</span>
-    <span class="hljs-keyword">int</span> e = <span class="hljs-number">100</span>;
+    <span class="hljs-comment">// i is not used in the current contract</span>
+    A i = A(<span class="hljs-number">1</span>);
 
-    <span class="hljs-comment">// f is not used in current contract or any descendant contracts</span>
-    <span class="hljs-keyword">int</span> <span class="hljs-keyword">internal</span> f = <span class="hljs-number">500</span>;
-
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
-        y = e;
+    <span class="hljs-keyword">int</span> <span class="hljs-keyword">internal</span> j = <span class="hljs-number">500</span>;
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title"><span class="hljs-built_in">call</span></span>(<span class="hljs-params"><span class="hljs-keyword">int</span> a</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        assign1(a);
     }
-}
-
-<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">DerivedB</span> <span class="hljs-keyword">is</span> <span class="hljs-title">DerivedA</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
-        <span class="hljs-built_in">super</span>.test();
-
-        z = <span class="hljs-number">3</span>;
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assign3</span>(<span class="hljs-params">A <span class="hljs-keyword">memory</span> x</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">uint</span></span>) </span>{
+        <span class="hljs-keyword">return</span> g[<span class="hljs-number">1</span>] + x.a + <span class="hljs-keyword">uint</span>(j);
     }
-}
 
-<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">SideUsage</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params">Base example</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">view</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span></span>) </span>{
-        <span class="hljs-keyword">return</span> example.a();
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ret</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span></span>)</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.e();
+
     }
+    
 }
-
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="unused-state-variablesyaml"></a><a href="#unused-state-variablesyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>unused_state_variables.yaml</h4>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Presence</span> <span class="hljs-string">of</span> <span class="hljs-string">unused</span> <span class="hljs-string">state</span> <span class="hljs-string">variables</span>
 <span class="hljs-attr">issues:</span>
 <span class="hljs-attr">- id:</span> <span class="hljs-string">SWC-131</span>
-<span class="hljs-attr">  count:</span> <span class="hljs-number">5</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">4</span>
 <span class="hljs-attr">  locations:</span>
 <span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
 <span class="hljs-attr">    line_numbers:</span>
-      <span class="hljs-string">unused_state_variables.sol:</span> <span class="hljs-string">[10]</span>
-<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
-<span class="hljs-attr">    line_numbers:</span>
-      <span class="hljs-string">base.sol:</span> <span class="hljs-string">[8]</span>
-<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
-<span class="hljs-attr">    line_numbers:</span>
-      <span class="hljs-string">base.sol:</span> <span class="hljs-string">[9]</span>
+      <span class="hljs-string">unused_state_variables.sol:</span> <span class="hljs-string">[8]</span>
 <span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
 <span class="hljs-attr">    line_numbers:</span>
       <span class="hljs-string">base.sol:</span> <span class="hljs-string">[10]</span>
 <span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
 <span class="hljs-attr">    line_numbers:</span>
-      <span class="hljs-string">base.sol:</span> <span class="hljs-string">[13]</span>
+      <span class="hljs-string">base.sol:</span> <span class="hljs-string">[11]</span>
+<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
+<span class="hljs-attr">    line_numbers:</span>
+      <span class="hljs-string">base.sol:</span> <span class="hljs-string">[17]</span>
+
 
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="unused-state-variables-fixedsol"></a><a href="#unused-state-variables-fixedsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>unused_state_variables_fixed.sol</h3>
-<pre><code class="hljs css language-Solidity">pragma solidity &gt;=<span class="hljs-number">0.4</span><span class="hljs-number">.24</span>;
+<pre><code class="hljs css language-Solidity">pragma solidity &gt;=<span class="hljs-number">0.5</span><span class="hljs-number">.0</span>;
+pragma experimental ABIEncoderV2;
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">"./base_fixed.sol"</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">DerivedAFixed</span> <span class="hljs-keyword">is</span> <span class="hljs-title">BaseFixed</span> </span>{
-    <span class="hljs-keyword">int</span> e = <span class="hljs-number">100</span>;
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">DerivedA</span> <span class="hljs-keyword">is</span> <span class="hljs-title">Base</span> </span>{
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
-        y = e;
+    <span class="hljs-keyword">int</span> <span class="hljs-keyword">internal</span> j = <span class="hljs-number">500</span>;
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title"><span class="hljs-built_in">call</span></span>(<span class="hljs-params"><span class="hljs-keyword">int</span> a</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
+        assign1(a);
     }
-}
-
-<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">DerivedB</span> <span class="hljs-keyword">is</span> <span class="hljs-title">DerivedAFixed</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> </span>{
-        <span class="hljs-built_in">super</span>.test();
-
-        z = <span class="hljs-number">3</span>;
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assign3</span>(<span class="hljs-params">A <span class="hljs-keyword">memory</span> x</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">uint</span></span>) </span>{
+        <span class="hljs-keyword">return</span> g[<span class="hljs-number">1</span>] + x.a + <span class="hljs-keyword">uint</span>(j);
     }
-}
 
-<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">SideUsage</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params">BaseFixed example</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">view</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span></span>) </span>{
-        <span class="hljs-keyword">return</span> example.a();
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ret</span>(<span class="hljs-params"></span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span></span>)</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.e();
+
     }
+    
 }
-
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="unused-state-variables-fixedyaml"></a><a href="#unused-state-variables-fixedyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>unused_state_variables_fixed.yaml</h4>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Presence</span> <span class="hljs-string">of</span> <span class="hljs-string">unused</span> <span class="hljs-string">state</span> <span class="hljs-string">variables</span>
@@ -136,24 +126,23 @@
 
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="unused-variablessol"></a><a href="#unused-variablessol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>unused_variables.sol</h3>
-<pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.20</span>;
+<pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.5</span><span class="hljs-number">.0</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">UnusedVariables</span> </span>{
     <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;
 
-    <span class="hljs-comment">// b is not used</span>
-    <span class="hljs-keyword">int</span> <span class="hljs-keyword">public</span> b;
-
     <span class="hljs-comment">// y is not used</span>
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unusedArg</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">view</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span> z</span>) </span>{
-        z = x + a;
+        z = x + a;  
     }
 
-    <span class="hljs-comment">// n is not used</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unusedReturn</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">pure</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n</span>) </span>{
+    <span class="hljs-comment">// n is not reported it is part of another SWC category</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unusedReturn</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">pure</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> o</span>) </span>{
         m = y - x;
+        o = m/<span class="hljs-number">2</span>;
     }
 
+    <span class="hljs-comment">// x is not accessed </span>
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">neverAccessed</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> test</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">pure</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span></span>) </span>{
         <span class="hljs-keyword">int</span> z = <span class="hljs-number">10</span>;
 
@@ -166,6 +155,13 @@
 
         <span class="hljs-keyword">return</span> z;
     }
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tupleAssignment</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> p</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span> q, <span class="hljs-keyword">int</span> r</span>)</span>{
+        (q, , r) = unusedReturn(p,<span class="hljs-number">2</span>);
+        
+    }
+
+
 }
 
 </code></pre>
@@ -173,47 +169,49 @@
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">Presence</span> <span class="hljs-string">of</span> <span class="hljs-string">unused</span> <span class="hljs-string">variables</span>
 <span class="hljs-attr">issues:</span>
 <span class="hljs-attr">- id:</span> <span class="hljs-string">SWC-131</span>
-<span class="hljs-attr">  count:</span> <span class="hljs-number">4</span>
+<span class="hljs-attr">  count:</span> <span class="hljs-number">2</span>
 <span class="hljs-attr">  locations:</span>
 <span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
 <span class="hljs-attr">    line_numbers:</span>
       <span class="hljs-string">unused_variables.sol:</span> <span class="hljs-string">[7]</span>
 <span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
 <span class="hljs-attr">    line_numbers:</span>
-      <span class="hljs-string">unused_variables.sol:</span> <span class="hljs-string">[10]</span>
-<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
-<span class="hljs-attr">    line_numbers:</span>
-      <span class="hljs-string">unused_variables.sol:</span> <span class="hljs-string">[15]</span>
-<span class="hljs-attr">  - bytecode_offsets:</span> <span class="hljs-string">{}</span>
-<span class="hljs-attr">    line_numbers:</span>
-      <span class="hljs-string">unused_variables.sol:</span> <span class="hljs-string">[24]</span>
+      <span class="hljs-string">unused_variables.sol:</span> <span class="hljs-string">[23]</span>
+
 
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="unused-variables-fixedsol"></a><a href="#unused-variables-fixedsol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>unused_variables_fixed.sol</h3>
-<pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.4</span><span class="hljs-number">.20</span>;
+<pre><code class="hljs css language-Solidity">pragma solidity ^<span class="hljs-number">0.5</span><span class="hljs-number">.0</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">UnusedVariablesFixed</span> </span>{
+<span class="hljs-class"><span class="hljs-keyword">contract</span> <span class="hljs-title">UnusedVariables</span> </span>{
     <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;
 
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unusedArg</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">view</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span> z</span>) </span>{
-        z = x + a;
+        z = x + a;  
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unusedReturn</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">pure</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span> m</span>) </span>{
+    <span class="hljs-comment">// n is not reported it is part of another SWC category</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unusedReturn</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">pure</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n,<span class="hljs-keyword">int</span> o</span>) </span>{
         m = y - x;
+        o = m/<span class="hljs-number">2</span>;
     }
 
+    <span class="hljs-comment">// x is not accessed </span>
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">neverAccessed</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> test</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">pure</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span></span>) </span>{
         <span class="hljs-keyword">int</span> z = <span class="hljs-number">10</span>;
 
         <span class="hljs-keyword">if</span> (test &gt; z) {
-            <span class="hljs-keyword">int</span> x = test - z;
-
-            <span class="hljs-keyword">return</span> x;
+            <span class="hljs-keyword">return</span> test - z;
         }
 
         <span class="hljs-keyword">return</span> z;
     }
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tupleAssignment</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> p</span>) <span class="hljs-title"><span class="hljs-keyword">public</span></span> <span class="hljs-title"><span class="hljs-keyword">returns</span></span> (<span class="hljs-params"><span class="hljs-keyword">int</span> q, <span class="hljs-keyword">int</span> r</span>)</span>{
+        (q, , r) = unusedReturn(p,<span class="hljs-number">2</span>);
+        
+    }
+
 }
 
 </code></pre>
